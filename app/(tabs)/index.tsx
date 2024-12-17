@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  Image,
   TextInput,
+  FlatList,
+  Image,
   Platform,
   Dimensions,
 } from 'react-native';
@@ -14,16 +15,60 @@ import { Colors } from '../../constants/Colors.ts';
 const { width, height } = Dimensions.get('window');
 
 export default function HomeScreen() {
-  const [reservationMessage, setReservationMessage] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [coiffeurs, setCoiffeurs] = useState([]); // Liste des coiffeurs filtrés
+  const [allCoiffeurs, setAllCoiffeurs] = useState([]); // Liste complète des coiffeurs
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [reservationMessage, setReservationMessage] = useState(''); // Ajout de l'état reservationMessage
+
+  // Fonction pour récupérer les coiffeurs depuis l'API
+  const fetchCoiffeurs = async () => {
+    setIsLoading(true); // Début du chargement
+    setError(null); // Réinitialiser l'erreur
+
+    try {
+      const response = await fetch('http://localhost:3000/coiffeurs');
+      const data = await response.json();
+      setAllCoiffeurs(data); // Stocke tous les coiffeurs dans l'état
+    } catch (error) {
+      setError('Erreur lors de la récupération des coiffeurs');
+      console.error("Erreur lors de la récupération des coiffeurs:", error);
+    } finally {
+      setIsLoading(false); // Fin du chargement
+    }
+  };
+
+  // Fonction de recherche et filtrage
+  const handleSearch = () => {
+    if (!searchQuery.trim()) {
+      setCoiffeurs(allCoiffeurs); // Si la recherche est vide, montre tous les coiffeurs
+    } else {
+      const filteredCoiffeurs = allCoiffeurs.filter(coiffeur =>
+        coiffeur.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setCoiffeurs(filteredCoiffeurs); // Mise à jour des coiffeurs filtrés
+    }
+  };
+
+  // Fonction pour rendre chaque item de la liste des coiffeurs
+  const renderCoiffeurItem = ({ item }) => (
+    <View style={styles.coiffeurItem}>
+      <TouchableOpacity
+        onPress={() => console.log('Naviguer vers les détails du coiffeur avec ID:', item.id)}
+        style={styles.coiffeurLink}>
+        <Text style={styles.coiffeurText}>{`${item.name} - ${item.salon} - ${item.service}`}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  // Utiliser useEffect pour charger les coiffeurs dès le début
+  useEffect(() => {
+    fetchCoiffeurs();
+  }, []); // Le tableau vide [] indique que cet effet ne sera exécuté qu'une fois au montage du composant
 
   const handleReservation = () => {
     setReservationMessage('Votre réservation a été initiée avec succès !');
-  };
-
-  const handleSearch = () => {
-    console.log('Recherche pour :', searchQuery);
-    // Ajoute ici une logique pour chercher dans ta liste de salons
   };
 
   return (
@@ -52,6 +97,20 @@ export default function HomeScreen() {
             <Text style={styles.searchButtonText}>Rechercher</Text>
           </TouchableOpacity>
         </View>
+
+        {/* Affichage des résultats de recherche uniquement après clic sur le bouton Rechercher */}
+        {isLoading ? (
+          <Text style={styles.loadingText}>Chargement...</Text>
+        ) : error ? (
+          <Text style={styles.errorText}>{error}</Text>
+        ) : (
+          <FlatList
+            data={coiffeurs}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderCoiffeurItem}
+            style={styles.resultsList}
+          />
+        )}
 
         <Text style={styles.description}>
           Découvrez notre service de réservation simplifié et faites vos choix facilement.
@@ -88,8 +147,7 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
         ),
-      })
-        }
+      })}
     </View>
   );
 }
@@ -100,23 +158,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backgroundImageOld: {
+  backgroundImage: {
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
-    aspectRatio: Platform.OS === 'web' ? 16 / 9 : 9 / 16,
+    resizeMode: 'cover',
   },
-    backgroundImage: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      resizeMode: 'cover', // Assure que l'image s'étire pour couvrir tout l'espace
-    },
-
   overlay: {
     flex: 1,
     justifyContent: 'center',
@@ -139,6 +188,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
+  loadingText: {
+    fontSize: 18,
+    color: '#fff',
+    textAlign: 'center',
+  },
+  errorText: {
+    fontSize: 18,
+    color: 'red',
+    textAlign: 'center',
+  },
   button: {
     backgroundColor: Colors.primary,
     paddingVertical: 15,
@@ -157,7 +216,7 @@ const styles = StyleSheet.create({
   reservationMessage: {
     marginTop: 20,
     fontSize: 16,
-    color: '##ffffff',
+    color: '#ffffff',
     textAlign: 'center',
     fontWeight: 'bold',
   },
@@ -186,30 +245,52 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  coiffeurItem: {
+    padding: 15,
+    marginBottom: 10,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
+  coiffeurLink: {
+    padding: 10,
+    backgroundColor: '#eee',
+    borderRadius: 5,
+  },
+  coiffeurText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  resultsList: {
+    width: '100%',
+  },
   webNavbar: {
     position: 'absolute',
     bottom: 0,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#6200EE',
-    paddingVertical: 10,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 10,
+    borderRadius: 20,
   },
   mobileNavbar: {
     position: 'absolute',
     bottom: 0,
-    width: '100%',
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    paddingVertical: 10,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#6200EE',
-    paddingVertical: 15,
   },
   navButton: {
-    padding: 5,
+    paddingVertical: 10,
   },
   navButtonText: {
-    color: '#FFF',
-    fontSize: 14,
-    fontWeight: 'bold',
+    color: '#fff',
+    fontSize: 18,
   },
 });
