@@ -15,12 +15,13 @@ export const Colors = {
     tabIconSelected: tintColorLight,
   },
   dark: {
-    text: '#000',
+    text1: '#0B0C15',
     textHolder:'#A0A0A0',
     primary: '#be2f7a',
     secondary: '#4CAF50',
     blue: '#235AFF',
     white: '#FFFFFF',
+    gray: '#787076',
 
 
     tint: tintColorDark,

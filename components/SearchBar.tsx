@@ -30,9 +30,9 @@ export function SearchBar({ value, onChange }: Props) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    flexDirection: "row", //added
-    alignItems: "center",
-    justifyContent: "space-between",
+    //flexDirection: "row", //added
+    //alignItems: "center",
+    //justifyContent: "space-between",
     borderRadius: 16,
     paddingHorizontal: 12,
     marginBottom: Platform.OS === "web" ? 16 : 0, // Add margin for web version for better positioning

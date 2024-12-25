@@ -29,7 +29,7 @@ export function NavigationBar({ style }) {
               source={item.icon}
               style={[
                 styles.icon,
-                { tintColor: activeIndex === index ? colors.blue : '#787076' },
+                { tintColor: activeIndex === index ? colors.blue : colors.gray},
               ]}
             />
             <View
