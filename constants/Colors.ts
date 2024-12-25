@@ -19,8 +19,10 @@ export const Colors = {
     textHolder:'#A0A0A0',
     primary: '#be2f7a',
     secondary: '#4CAF50',
-    //background: '#FFF',
-    backgroundSecondary: '#F6F8FF',
+    blue: '#235AFF',
+    white: '#FFFFFF',
+
+
     tint: tintColorDark,
     icon: '#1BA1A6',
     tabIconDefault: '#9BA1A6',

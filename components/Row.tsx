@@ -12,7 +12,7 @@ export function Row ({style, gap, ...rest}: Props) {
 
 const rowStyle = {
         flex: Platform.OS === 'web' ? 1 : 0,
-        flexDirection: 'Row',
+        flexDirection: 'row',
         alignItems: "center",
         justifyContent: "space-between",
     } satisfies ViewStyle;

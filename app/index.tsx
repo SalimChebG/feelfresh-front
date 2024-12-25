@@ -10,7 +10,9 @@ import {getSalonId} from "@/functions/salon.ts"
 import {SearchBar} from "@/components/SearchBar"
 import {HomeHeader} from "@/components/HomeHeader"
 import {Row} from "@/components/Row"
+import {CoupeCheveux} from "@/components/services/CoupeCheveux"
 import {useState} from 'react'
+import {NavigationBar} from "@/components/NavigationBar"
 
 export default function Index() {
     const { width } = Dimensions.get('window');
@@ -43,21 +45,20 @@ return (
     {/* Conteneur des frames */}
     <View >
       {/* Frame supérieur */}
-        <View style={[styles.topFrame, { backgroundColor: colors.background.primary, paddingHorizontal: 30 }]}>
+        <View style={[{ backgroundColor: colors.background.secondary, paddingHorizontal: 30 }, styles.largeSubFrame]}>
           {/* Grand sous-frame en haut */}
-            <View style={[{ backgroundColor: colors.background.primary }, styles.largeSubFrame]}>
+            <View style={[{ backgroundColor: colors.background.primary }]}>
                 <SearchBar value={search} onChange={setSearch}/>
             </View>
-            <View style={styles.frame}>
+            <View style={[styles.frame]}>
                   <ThemedText variant="headline" color="text">
                             Services
                   </ThemedText>
+                  <CoupeCheveux style={[{ backgroundColor: colors.blue }]}> </CoupeCheveux>
             </View>
-
-
           {/* Petit sous-frame en bas */}
-          <View style={[ { backgroundColor: colors.icon },styles.smallSubFrame]} />
-        </View>
+        <View style={[ { backgroundColor: colors.icon },styles.smallSubFrame]} />
+    </View>
 
 
       {/* -------------------- Espacement entre les deux frames ----------------------*/}
@@ -71,27 +72,19 @@ return (
           />
         </View>
 
-    <View>
-      {isMobile && ( // Affiche uniquement en version mobile
         <View>
-          <Image
-            source={require("@/assets/images/homeScreen/state=home.png")}
-            style={styles.navBar}
-          />
+              {isMobile && ( // Affiche uniquement en version mobile
+
+                <NavigationBar style={[{ backgroundColor: colors.white }]}/>
+
+              )}
         </View>
-      )}
-    </View>
   </SafeAreaView>
 );
 
 }
 
 const styles = StyleSheet.create({
-        subcontainer: {
-            flex: 1,
-            padding: 4,
-        },
-
     subcontainer: {
         width: 344,
         height: 488,
@@ -104,37 +97,10 @@ const styles = StyleSheet.create({
     header: {
         paddingHorizontal: 12,
         paddingVertical: 8,
-
         flexDirection: 'row', // Par défaut sur mobile
         alignItems: 'center',
         },
-    image: {
-        width: 24,
-        height: 24, // Hauteur de l'image
-        resizeMode: 'contain', // Garde les proportions de l'image
-      },
 
-      image2: {
-          width: '100%',
-          //top: -20,
-          //height: 240, // Hauteur de l'image
-          resizeMode: 'contain', // Garde les proportions de l'image
-        },
-
-    body:{
-    flex: 1,
-    marginTop: 16,
-    },
-
-    gridGap:{
-            gap: 0,
-        },
-
-    list: {
-        padding: 2,
-        }
-
-    ,
       topFrame: {
         width: '100%',
         height: 220,
@@ -151,7 +117,8 @@ const styles = StyleSheet.create({
     largeSubFrame: {
       width: "100%",
       height: 166,
-      flex: 0,
+      justifyContent: "space-between",
+
     },
 
     smallSubFrame: {

@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     headline:{fontSize:18, lineHeight:24,fontWeight:'bold',},
     body3:{fontSize:10, lineHeight:16,},
     subtitle2:{fontSize:14, lineHeight:16, fontWeight:'bold',},
+    servicefont:{fontSize:12, lineHeight:15,},
 });
 
 type Props = TextProps & {
