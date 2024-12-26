@@ -14,8 +14,11 @@ import {CoupeCheveux} from "@/components/services/CoupeCheveux"
 import {ServicesComponent} from "@/components/Services"
 import {useState} from 'react'
 import {NavigationBar} from "@/components/NavigationBar"
+import {filteredSalons} from "@/constants/SetTestSalons"
+import '../i18n';
 
 export default function Index() {
+
     const { width } = Dimensions.get('window');
     const isMobile = Platform.OS !== 'web' && width <= 768; // On vérifie que ce n'est pas une plateforme "web" et que la largeur correspond à un écran mobile
 
@@ -24,7 +27,7 @@ export default function Index() {
     const salons = data ?? []
 
     const [search, setSearch] = useState('')
-    const filteredSalons = search ? salons.filter(p => p.name.includes(search.toLowerCase()) || getSalonId(p.url).toString() == search) : salons
+    //const filteredSalons = search ? salons.filter(p => p.name.includes(search.toLowerCase()) || getSalonId(p.url).toString() == search) : salons
 
 return (
   <SafeAreaView style={[styles.container, { backgroundColor: colors.background.primary }]}>
@@ -64,15 +67,39 @@ return (
           />*/}
       {/* -------------------- Espacement entre les deux frames ----------------------*/}
 
-          {/* Frame inférieur */}
+          {/* Frame inférieur
           <View style={[styles.bottomFrame, { backgroundColor: colors.background.primary }]}>
-                <SalonPreviewCard id={"https://ff64e948de11bafd60e80d05461fc600687b4a19a67c0f66e06c1d5-apidata.googleusercontent.com/download/storage/v1/b/imagestopg/o/8.jpg?jk=ASCxOPsu8cfqsTrsQwLZCl6pc03CCvt9NS7zJTXXNQ6OdrRVkg-WHk_q_RJL5quUh6JSoxqkxRSVtwVdMt2AoG_G5MqTmwOjr2rv0fuiJ09J9NQ19b-XbeL2CmIbO1ImzN4BEmX1xo-hSqogZCNyIp0R3eQACS-zHz2h3qadbmm9vw-NxyE-0INtV1Qb4dlaKYb7QRY_tZI3tnEb2b_PZNp2ZyhHD0SMDtEVsStdn6-ogitqzCQF_Qr4kNECOzK8d6CZMNagJ_p4FF1WIIgzWivs6F74n96DiNJukaZOU4n2m5goZWoE_c9oW7guaRkjAm-rajnCDTRY9rS2GWTO29ixrD2GZnSrG2ePufH4l-JDm2tZxosdI9x20Ezqeh5gurQDu0clXdiCVHUbvP__XYfZvZ6Cg2UYIL0323tlgwk4mMdG-l4U3ONQKb6yD1KgEA8lnXVxRsJ9bRyw3ZnjctlA0XX-iRATCn9Gl4zO_MP-kYb2cPgqjf2uXAqi23XiByWDhluzKX7rHdim5y7j4Q0HiYCwa4p7s4oIo1fJKbsQZrzHxA-s582qvTEytwP1hWPgnVCGdoMM5S-_hY6n4bRLUpwgZTb3CZsuKGae3tKYoZ_R3PCkCHJdfzcTo8UUEwiGJqj8lKvU9nBaBAq6hH4iRP2pnEejs94WHyq0IscBAbo4j8RTVEe3kwcWGN8wVPJ5KJnnPUSz_AwCAmt7rZGM9FwQvokTzvrpohAlFMhTnMOSfXsZuQ_S4NJy7i-TT-H2VP7XFWmSRTz2f-hJ-PrR8V64w8q47TO83pCQQD_kkRZoIdZm32Xx6rr0ui16aHyHgNQTi__HS3EMWVnvMFIr1q4jp0EveBv3m-b8-FYnTRcBcSXz9CX8ky_in_JvwMqXqfClHXYQCILKm8UIabe4pkZDENXth87sbIMTOBEibvsr0Pyy66uZ3XQelvZLpgk8-F6hFqqns7BtkRHmCe76daNWwDpl0aO6f4mFmxNeCNpiIo2j3iviF5fox77xItYKFfKKm2TaK685VPjdn88QZ2BhNV2GIBHEUcH6Z1rf16LNrBp4anM0JVXKG07d88OM8wFy2PbuDHYJE7QgEnFP_4VlmRrsXFj3lZ7iCT51U_GFaa1Aqp-2W4u7rgoA2cxKimwsueMbPwn4N5_xKFX7BiHa3SgytAIj89qcpikW&isca=1"} name={"TopG wagon"} style={{flex: 1}}>
+                <SalonPreviewCard
+                id={"777"} name={"TopG wagon"} style={{flex: 1}}>
                 </SalonPreviewCard>
+          </View>*/}
+
+          <View style={[styles.bottomFrame, { backgroundColor: colors.background.primary }]}>
+            <FlatList
+              data={filteredSalons} // Remplace avec ta liste de salons
+              numColumns={Platform.OS === 'web' ? 3 : 1} // Nombre de colonnes selon la plateforme
+              contentContainerStyle={[styles.gridGap, styles.list]} // Ajout des styles pour l'espacement
+              columnWrapperStyle={Platform.OS === 'web' ? styles.columnWrapper : null} // Style pour l'espacement des colonnes si sur web
+              ListFooterComponent={
+                isFetching ? <ActivityIndicator color={colors.secondaryBackground} /> : null
+              }
+              renderItem={({ item }) => (
+                <SalonPreviewCard id={item.id} name={item.name} style={{ flex: 1 }} /> // Utilisation du composant avec les données de chaque salon
+              )}
+              keyExtractor={(item) => item.id.toString()} // Utilisation d'un identifiant unique pour chaque item
+            />
           </View>
 
           <View style={isMobile ? styles.mobileNavBarContainer : {}}>
                 {isMobile && <NavigationBar style={[{ backgroundColor: colors.white }]} />}
+
+
+
+
+
           </View>
+
+
   </SafeAreaView>
 );
 
@@ -95,8 +122,9 @@ const styles = StyleSheet.create({
         },
 
         bottomFrame: {
-          height: 244,
+          height: 520,
           justifyContent: "space-between",
+          paddingHorizontal: 10
         },
 
         header: {
@@ -114,14 +142,15 @@ const styles = StyleSheet.create({
 
     mobileNavBarContainer: {
         position: 'absolute',
-        bottom: 0,
+        bottom:3,
         left: 0,
         right: 0,
     },
 
+
       navBar: {
         width: '100%', // Utilise toute la largeur du conteneur
-        height: 200, // Fixe une hauteur spécifique pour l'image, tu peux ajuster cela en fonction du design
+        height: 58, // Fixe une hauteur spécifique pour l'image, tu peux ajuster cela en fonction du design
         resizeMode: 'contain', // Assure que l'image conserve ses proportions sans déformation
       },
 })

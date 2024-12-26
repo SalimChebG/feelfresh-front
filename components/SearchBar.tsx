@@ -17,7 +17,6 @@ export function SearchBar({ value, onChange }: Props) {
   console.log("Translations:", i18n.t('search_placeholder'));
 
   return (
-
     <Row gap={8} style={[styles.wrapper, { backgroundColor: colors.background.tertiary }]}>
           <Image
             source={require("@/assets/images/homeScreen/search-loop.png")}

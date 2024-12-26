@@ -8,6 +8,9 @@ type Props = {
   style?: ViewStyle;
   id: number;
   name: string;
+  address: string;
+  reviewsNumber: number;
+  rate: number;
 };
 
 export function SalonPreviewCard({ style, id, name }: Props) {
@@ -30,7 +33,7 @@ export function SalonPreviewCard({ style, id, name }: Props) {
             <Image
               //source={{
                 //uri: `${id}`,
-                source={require("@/assets/images/8.jpg")}
+                source={require("@/assets/images/8.png")}
               //}}
               style={[styles.image]}
             />

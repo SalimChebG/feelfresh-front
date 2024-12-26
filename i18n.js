@@ -11,7 +11,7 @@ const resources = {
 };
 
 // Détecter la langue par défaut (manuelle si RNLocalize ne fonctionne pas)
-const defaultLanguage = 'en'; // Changez selon vos besoins
+const defaultLanguage = 'fr'; // Changez selon vos besoins
 
 i18n
   .use(initReactI18next)
