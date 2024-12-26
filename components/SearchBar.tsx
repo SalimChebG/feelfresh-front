@@ -1,6 +1,8 @@
 import { Platform, TextInput, View, StyleSheet, Image } from "react-native";
 import { Row } from "@/components/Row";
 import { useThemeColors } from "@/hooks/useThemeColors";
+import { useTranslation } from "react-i18next"; // Import du hook de traduction
+import i18n from 'i18next';
 
 type Props = {
   value: string;
@@ -9,6 +11,10 @@ type Props = {
 
 export function SearchBar({ value, onChange }: Props) {
   const colors = useThemeColors();
+  const { t , i18n} = useTranslation(); // Hook pour les traductions
+
+  console.log("Current language:", i18n.language);
+  console.log("Translations:", i18n.t('search_placeholder'));
 
   return (
 
@@ -21,7 +27,7 @@ export function SearchBar({ value, onChange }: Props) {
           style={styles.input}
           onChangeText={onChange}
           value={value}
-          placeholder="Rechercher"
+          placeholder = {t("search_placeholder")} // Utilisation de la traduction
           placeholderTextColor={colors.textHolder} // Correctement placé
         />
     </Row>
