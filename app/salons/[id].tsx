@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Row } from "@/components/Row";
 import { Prestation } from "@/components/salon/Prestation";
+import { useRouter, useLocalSearchParams } from "expo-router";
 
 import {
   View,
@@ -61,6 +62,8 @@ export default function SalonDetailsScreen() {
   const [activeTab, setActiveTab] = useState("Prendre RDV");
   const [isFavorite, setIsFavorite] = useState(false); // état pour gérer l'icône favoris
   const [isClickedBack, setIsClickedBack] = useState(false); // état pour l'icône retour
+    const router = useRouter();
+    const params= useLocalSearchParams();
 
   const handleFavorite = () => {
     setIsFavorite(!isFavorite); // Toggle favori
@@ -110,28 +113,28 @@ export default function SalonDetailsScreen() {
 
         {/* Salon Information */}
         <View style={styles.infoSection}>
-              <ThemedText variant="headline2" color="text1" style={{marginRight: 4, marginTop: 4}}>Hair Avenue</ThemedText>
+              <ThemedText variant="headline2" color="text1" style={{marginRight: 4, marginTop: 4}}>{params.name}</ThemedText>
               <Row style={styles.detailGrid}>
                 <Image source={require("@/assets/images/salon/map-pin-gray.png")} style={{ width: 18, height: 18 }} />
                 <ThemedText variant="textstyle1" color="text2" style={{ marginRight: 4, marginTop: 4 }}>
-                  No 03, Kadalana Road, Kadulana, Moratuwa
+                  {params.address}
                 </ThemedText>
               </Row>
 
              <Row style={styles.detailGrid}>
                <Image source={require("@/assets/images/salon/clock.png")} style={{ width: 18, height: 18 }} />
                <ThemedText variant="textstyle1" color="text2" >
-                 9AM - 10PM, Mon-Sun
+                 {params.openingHours}
                </ThemedText>
              </Row>
 
             <Row style={styles.detailGrid}>
               <Image source={require("@/assets/images/salon/star.png")} style={{ width: 18, height: 18 }} />
               <ThemedText variant="textstyle1" color="text2" style={{ marginRight: 4, marginTop: 4 }}>
-                4.7
+               {params.rate}
               </ThemedText>
               <ThemedText variant="textstyle1" color="text2" style={{ marginRight: 4, marginTop: 4 }}>
-                (312 Reviews)
+                ({params.reviewsNumber} Reviews)
               </ThemedText>
             </Row>
         </View>
