@@ -7,7 +7,7 @@ export function HomeHeader({ style, ...rest }: Props) {
   const colors = useThemeColors();
 
   return (
-    <View style={[styles.container, style, styles.roundedContainer, { backgroundColor: colors.background.primary }]} {...rest}>
+    <View style={[style, styles.roundedContainer, { backgroundColor: colors.background.primary }]} {...rest}>
       {/* Conteneur carré avec "stroke" à l'intérieur */}
 
         <Image
@@ -23,10 +23,6 @@ export function HomeHeader({ style, ...rest }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row", // Si d'autres éléments sont ajoutés, ils seront en ligne
-    alignItems: "center",
-  },
   roundedContainer: {
     width: 44,
     height: 44,
@@ -37,10 +33,12 @@ const styles = StyleSheet.create({
     borderWidth: 1, // Largeur du contour
     borderColor: "#F5F5F5", // Couleur du contour (simule un stroke)
     overflow: "hidden", // Pour s'assurer que l'effet de border est bien appliqué à l'intérieur
+        flexDirection: "row", // Si d'autres éléments sont ajoutés, ils seront en ligne
+        alignItems: "center",
   },
   bing: {
-    width: 24,
-    height: 24,
+    width: 30,
+    height: 30,
     resizeMode: "contain",
   },
   dot: {

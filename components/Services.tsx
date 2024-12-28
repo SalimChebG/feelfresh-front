@@ -3,18 +3,20 @@ import React, { useState } from "react";
 import { Row } from "@/components/Row";
 import { ThemedText } from "@/components/ThemedText";
 import { useThemeColors } from "@/hooks/useThemeColors";
+import { useTranslation } from "react-i18next";
 
 const Services = [
-  { name: 'Coupe', icon: require('@/assets/images/services/coupe-cheveux.png') },
-  { name: 'Style', icon: require('@/assets/images/services/style-cheveux.png') },
-  { name: 'Manicure', icon: require('@/assets/images/services/manicure.png') },
-  { name: 'Brushing', icon: require('@/assets/images/services/brushing.png') },
-  { name: 'Barbe', icon: require('@/assets/images/services/style-cheveux.png') },
+  { name: 'services.coupe', icon: require('@/assets/images/services/coupe-cheveux.png') },
+  { name: 'services.style', icon: require('@/assets/images/services/style-cheveux.png') },
+  { name: 'services.manicure', icon: require('@/assets/images/services/manicure.png') },
+  { name: 'services.brushing', icon: require('@/assets/images/services/brushing.png') },
+  { name: 'services.barbe', icon: require('@/assets/images/services/style-cheveux.png') },
 ];
 
 export function ServicesComponent({ style }: { style?: any }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const colors = useThemeColors();
+  const i18n = useTranslation();
 
   const renderItem = ({ item, index }: { item: typeof Services[0]; index: number }) => (
     <TouchableOpacity
@@ -33,7 +35,8 @@ export function ServicesComponent({ style }: { style?: any }) {
             ]}
           />
           <ThemedText color={activeIndex === index ? "white" : "gray"} variant="servicefont">
-            {item.name}
+
+            {i18n.t(item.name)}
           </ThemedText>
         </Row>
       </View>

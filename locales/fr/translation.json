@@ -1,4 +1,11 @@
 {
     "search_placeholder": "Recherchez ici",
-    "HairCut_Label": "Coupe"
+    "HairCut_Label": "Coupe",
+    "services": {
+        "coupe": "Coupe",
+        "style": "Style",
+        "manicure": "Manucure",
+        "brushing": "Brushing",
+        "barbe": "Barbe"
+    }
 }

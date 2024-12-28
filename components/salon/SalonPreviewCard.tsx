@@ -3,6 +3,8 @@ import { ThemedText } from "@/components/ThemedText";
 import { Link } from "expo-router";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Row } from "@/components/Row";
+import { Availability } from "@/components/salon/Availability";
+
 
 type Props = {
   style?: ViewStyle;
@@ -28,37 +30,54 @@ export function SalonPreviewCard({ style, id, name }: Props) {
         style={style}
       >
         <View style={[styles.salon]}>
-          <View style={[styles.frame]}>
-            {/* Image */}
-            <Image
-              //source={{
-                //uri: `${id}`,
-                source={require("@/assets/images/8.png")}
-              //}}
-              style={[styles.image]}
+          {/* Image Section */}
+          <Image
+            source={require("@/assets/images/8.png")}
+            style={styles.image}
+            resizeMode="cover"
+          />
+
+          {/* Information Section */}
+          <View style={styles.infoContainer}>
+                <ThemedText variant="subtitle2" color="text1" style={styles.name}>
+                  {name}
+                </ThemedText>
+
+                <Row style={styles.ratingRow}>
+                  <Image
+                    source={require("@/assets/images/salon/map-pin-gray.png")}
+                    style={{ width: 18, height: 18 }}
+                  />
+                  <ThemedText variant="textstyle2" color="text2" style={styles.text}>
+                    Lakewood, California
+                  </ThemedText>
+                </Row>
+
+                <Row style={styles.ratingRow}>
+                  <Image
+                    source={require("@/assets/images/salon/star.png")}
+                    style={{ width: 18, height: 18 }}
+                  />
+                  <ThemedText variant="textstyle1" color="text2" style={styles.text}>
+                    4.7
+                  </ThemedText>
+                  <ThemedText variant="textstyle1" color="text2" style={styles.text}>
+                    (312)
+                  </ThemedText>
+                </Row>
+          </View>
+          {/* Information Section */}
+            <Availability
+              availabilities={[
+                { date: "Ven.27", time: "matin", isAvailable: false },
+                { date: "Sam.28", time: "matin", isAvailable: true },
+                { date: "Dim.29", time: "matin", isAvailable: false },
+                { date: "Ven.27", time: "après-midi", isAvailable: true },
+                { date: "Sam.28", time: "après-midi", isAvailable: false },
+                { date: "Dim.29", time: "après-midi", isAvailable: true },
+              ]}
             />
 
-            {/* Information Frame */}
-            <View style={[styles.infoContainer]}>
-                <Row style={styles.ratingRow}>
-                      <ThemedText variant="subtitle2" color="text1"> {name} </ThemedText>
-                      <ThemedText variant="subtitle2" color="gray" style={styles.distance}> 2 km </ThemedText>
-                 </Row>
-
-                  <ThemedText variant="body2" color="gray">
-                        Lakewood, California
-                  </ThemedText>
-
-                  {/* Rating and Distance */}
-                  <Row style={styles.ratingRow}>
-                        <ThemedText variant="body1" color="accent">⭐ 4.7 </ThemedText>
-                        <ThemedText variant="body1" color="gray">(312) </ThemedText>
-                  </Row>
-            </View>
-
-            {/* Distance */}
-
-          </View>
         </View>
       </Pressable>
     </Link>
@@ -67,46 +86,38 @@ export function SalonPreviewCard({ style, id, name }: Props) {
 
 const styles = StyleSheet.create({
   salon: {
-    height: 114,
-    alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    flexDirection: "column",
-    gap: 10,
-    borderRadius: 10,
+    width: "100%",
+    borderRadius: 15,
     backgroundColor: "white",
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
     shadowRadius: 5,
-    elevation: 5,
+    elevation: 3,
+    //overflow: "hidden", // Ensures the image doesn't overflow the card
   },
-  frame: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 16,
-    flex: 1,
+  image: {
+    width: "100%",
+    height: 170, // Adjust height as needed
   },
   infoContainer: {
-    flex: 1,
+    padding: 12,
     flexDirection: "column",
-    gap: 6,
-    width: "100%",
+    gap: 8,
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 4,
   },
   ratingRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: 6,
     justifyContent: "null",
+    gap: 4,
   },
-  distance: {
-    alignSelf: "flex-end",
-    marginLeft: "auto",
-  },
-  image: {
-    width: 90,
-    height: 90,
-    borderRadius: 10,
+  text: {
+    marginTop: 2,
   },
 });

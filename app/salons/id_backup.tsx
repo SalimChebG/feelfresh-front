@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Row } from "@/components/Row";
-import { Prestation } from "@/components/salon/Prestation";
-
 import {
   View,
   Image,
@@ -136,9 +134,33 @@ export default function SalonDetailsScreen() {
             </Row>
         </View>
 
-        <Prestation>
-        </Prestation>
+        {/* Tabs */}
+        <View style={[styles.tabsContainer,{borderBottomColor: colors.graythin}]}>
+          {Object.keys(menu).map((tab) => (
+            <Pressable
+              key={tab}
+              onPress={() => setActiveTab(tab)}
+              style={[styles.tabItem, activeTab === tab && {borderBottomColor: "blue", borderBottomWidth: 2}]}
+            >
+              <ThemedText variant="textstyle2" color={activeTab === tab ? "blue" : "gray"} style={styles.tabText}>
+                {tab}
+              </ThemedText>
+            </Pressable>
+          ))}
+        </View>
 
+        {/* menu List */}
+        <View style={styles.menuList}>
+          {menu[activeTab].map((service, index) => (
+            <View key={index} style={styles.serviceItem}>
+              <ThemedText variant="body1" color="text">{service.name}</ThemedText>
+              <View style={styles.serviceDetails}>
+                <ThemedText variant="body2" color="accent" style={styles.servicePrice}>{service.price}</ThemedText>
+                <ThemedText variant="body2" color="gray" style={styles.serviceDuration}>{service.duration}</ThemedText>
+              </View>
+            </View>
+          ))}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
