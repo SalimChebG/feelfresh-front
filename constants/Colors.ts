@@ -16,13 +16,15 @@ export const Colors = {
   },
   dark: {
     text1: '#0B0C15',
+    text2: '#939393',
     textHolder:'#A0A0A0',
     primary: '#be2f7a',
     secondary: '#4CAF50',
     blue: '#235AFF',
     white: '#FFFFFF',
     gray: '#787076',
-    grayDisabledButton: '#E5E5E5',
+    graythin: '#E5E5E5',
+
 
     tint: tintColorDark,
     icon: '#1BA1A6',

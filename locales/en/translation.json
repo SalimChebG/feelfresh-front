@@ -1,12 +1,13 @@
 {
     "search_placeholder": "Search here",
-    "ServicesHomeLAbel": "ServicesEn",
-    "NearbySalonsHomeLabel": "Nearby Salons",
-    "service" : { 
-    "coupe": "Hair Cut",
-    "style": "Style",
-    "manicure": "Manicure",
-    "brushing": "Brushing",
-    "barbe": "Beard"}
+    "HairCut_Label": "Hair Cut",
+
+    "services": {
+        "coupe": "Haircut",
+        "style": "Style",
+        "manicure": "Manicure",
+        "brushing": "Brushing",
+        "barbe": "Beard"
+    }
 }
 
