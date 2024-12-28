@@ -5,7 +5,6 @@ import { useThemeColors } from "@/hooks/useThemeColors";
 import { Row } from "@/components/Row";
 import { Availability } from "@/components/salon/Availability";
 
-
 type Props = {
   style?: ViewStyle;
   id: number;
@@ -13,13 +12,14 @@ type Props = {
   address: string;
   reviewsNumber: number;
   rate: number;
+  openingHours: string;
 };
 
-export function SalonPreviewCard({ style, id, name }: Props) {
+export function SalonPreviewCard({ style, id, name, address, reviewsNumber, rate, openingHours }: Props) {
   const colors = useThemeColors();
   return (
     <Link
-      href={{ pathname: "/salons/[id]", params: { id: id } }}
+      href={{ pathname: "/salons/[id]",     params: { id: id,} }}
       asChild
     >
       <Pressable
@@ -39,45 +39,47 @@ export function SalonPreviewCard({ style, id, name }: Props) {
 
           {/* Information Section */}
           <View style={styles.infoContainer}>
-                <ThemedText variant="subtitle2" color="text1" style={styles.name}>
-                  {name}
-                </ThemedText>
+            <ThemedText variant="subtitle2" color="text1" style={styles.name}>
+              {name}
+            </ThemedText>
 
-                <Row style={styles.ratingRow}>
-                  <Image
-                    source={require("@/assets/images/salon/map-pin-gray.png")}
-                    style={{ width: 18, height: 18 }}
-                  />
-                  <ThemedText variant="textstyle2" color="text2" style={styles.text}>
-                    Lakewood, California
-                  </ThemedText>
-                </Row>
+            {/* Address Row */}
+            <Row style={styles.ratingRow}>
+              <Image
+                source={require("@/assets/images/salon/map-pin-gray.png")}
+                style={{ width: 18, height: 18 }}
+              />
+              <ThemedText variant="textstyle2" color="text2" style={styles.text}>
+                {address}
+              </ThemedText>
+            </Row>
 
-                <Row style={styles.ratingRow}>
-                  <Image
-                    source={require("@/assets/images/salon/star.png")}
-                    style={{ width: 18, height: 18 }}
-                  />
-                  <ThemedText variant="textstyle1" color="text2" style={styles.text}>
-                    4.7
-                  </ThemedText>
-                  <ThemedText variant="textstyle1" color="text2" style={styles.text}>
-                    (312)
-                  </ThemedText>
-                </Row>
+            {/* Rating and Reviews Row */}
+            <Row style={styles.ratingRow}>
+              <Image
+                source={require("@/assets/images/salon/star.png")}
+                style={{ width: 18, height: 18 }}
+              />
+              <ThemedText variant="textstyle1" color="text2" style={styles.text}>
+                {rate}
+              </ThemedText>
+              <ThemedText variant="textstyle1" color="text2" style={styles.text}>
+                ({reviewsNumber})
+              </ThemedText>
+            </Row>
           </View>
-          {/* Information Section */}
-            <Availability
-              availabilities={[
-                { date: "Ven.27", time: "matin", isAvailable: false },
-                { date: "Sam.28", time: "matin", isAvailable: true },
-                { date: "Dim.29", time: "matin", isAvailable: false },
-                { date: "Ven.27", time: "après-midi", isAvailable: true },
-                { date: "Sam.28", time: "après-midi", isAvailable: false },
-                { date: "Dim.29", time: "après-midi", isAvailable: true },
-              ]}
-            />
 
+          {/* Availability Section */}
+          <Availability
+            availabilities={[
+              { date: "Ven.27", time: "matin", isAvailable: false },
+              { date: "Sam.28", time: "matin", isAvailable: true },
+              { date: "Dim.29", time: "matin", isAvailable: false },
+              { date: "Ven.27", time: "après-midi", isAvailable: true },
+              { date: "Sam.28", time: "après-midi", isAvailable: false },
+              { date: "Dim.29", time: "après-midi", isAvailable: true },
+            ]}
+          />
         </View>
       </Pressable>
     </Link>

@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Row } from "@/components/Row";
 import { Prestation } from "@/components/salon/Prestation";
+import { filteredSalons } from "@/constants/SetTestSalons";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { getSalonById } from "@/functions/salon";
+import { ThemedText } from "@/components/ThemedText"; // Importation de ThemedText
 
 import {
   View,
@@ -17,53 +20,15 @@ import {
   Alert, // Pour simuler un retour en arrière
 } from "react-native";
 
-import { ThemedText } from "@/components/ThemedText"; // Importation de ThemedText
-
-const menu = {
-  "Prendre RDV": [
-    {
-      name: "Basic Hair Cut",
-      description: "A classic haircut tailored to your style. Whether you want a trim or a new look, this service is perfect for a fresh, clean appearance.",
-      price: "10.00 €",
-      duration: "30 mins"
-    },
-    {
-      name: "Hair Wash",
-      description: "A refreshing hair wash to remove buildup and restore your hair's natural shine. Enjoy a relaxing scalp massage during the process.",
-      price: "5.00 €",
-      duration: "45 mins"
-    },
-    {
-      name: "Barbe",
-      description: "A beard grooming session that includes trimming, shaping, and styling. Leave with a polished and well-maintained beard.",
-      price: "12.00 €",
-      duration: "2h"
-    },
-    {
-      name: "Nails",
-      description: "Get your nails done with a professional manicure or pedicure. From basic care to more elaborate designs, this service ensures your nails look flawless.",
-      price: "12.00 €",
-      duration: "1h 15min"
-    },
-  ],
-  "Avis": [
-    // Optionally, you can add some items here if needed in the future.
-  ],
-  "A-propos": [
-    // Optionally, you can add some items here if needed in the future.
-  ],
-};
-
 const { width } = Dimensions.get("window");
 
 export default function SalonDetailsScreen() {
-
   const colors = useThemeColors();
-  const [activeTab, setActiveTab] = useState("Prendre RDV");
   const [isFavorite, setIsFavorite] = useState(false); // état pour gérer l'icône favoris
   const [isClickedBack, setIsClickedBack] = useState(false); // état pour l'icône retour
     const router = useRouter();
-    const params= useLocalSearchParams();
+    const {id}= useLocalSearchParams();
+    const salon = getSalonById(filteredSalons, id);
 
   const handleFavorite = () => {
     setIsFavorite(!isFavorite); // Toggle favori
@@ -113,28 +78,28 @@ export default function SalonDetailsScreen() {
 
         {/* Salon Information */}
         <View style={styles.infoSection}>
-              <ThemedText variant="headline2" color="text1" style={{marginRight: 4, marginTop: 4}}>{params.name}</ThemedText>
+              <ThemedText variant="headline2" color="text1" style={{marginRight: 4, marginTop: 4}}>{salon.name}</ThemedText>
               <Row style={styles.detailGrid}>
                 <Image source={require("@/assets/images/salon/map-pin-gray.png")} style={{ width: 18, height: 18 }} />
                 <ThemedText variant="textstyle1" color="text2" style={{ marginRight: 4, marginTop: 4 }}>
-                  {params.address}
+                  {salon.address}
                 </ThemedText>
               </Row>
 
              <Row style={styles.detailGrid}>
                <Image source={require("@/assets/images/salon/clock.png")} style={{ width: 18, height: 18 }} />
                <ThemedText variant="textstyle1" color="text2" >
-                 {params.openingHours}
+                 {salon.openingHours}
                </ThemedText>
              </Row>
 
             <Row style={styles.detailGrid}>
               <Image source={require("@/assets/images/salon/star.png")} style={{ width: 18, height: 18 }} />
               <ThemedText variant="textstyle1" color="text2" style={{ marginRight: 4, marginTop: 4 }}>
-               {params.rate}
+               {salon.rate}
               </ThemedText>
               <ThemedText variant="textstyle1" color="text2" style={{ marginRight: 4, marginTop: 4 }}>
-                ({params.reviewsNumber} Reviews)
+                ({salon.reviewsNumber} Reviews)
               </ThemedText>
             </Row>
         </View>

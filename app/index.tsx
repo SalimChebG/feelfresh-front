@@ -71,15 +71,18 @@ return (
                 isFetching ? <ActivityIndicator color={colors.secondaryBackground} /> : null
               }
               renderItem={({ item }) => (
-                  <SalonPreviewCard
-                    id={1}
-                    name="Salon Élégance"
+                <SalonPreviewCard
+                  id={item.id}
+                  name={item.name}
+                  address={item.address}
+                  reviewsNumber={item.reviewsNumber}
+                  rate={item.rate}
+                  openingHours={item.openingHours}
+                />
 
-                  />
               )}
               keyExtractor={(item) => item.id.toString()} // Utilisation d'un identifiant unique pour chaque item
             />
-
 
           <View style={isMobile ? styles.mobileNavBarContainer : {}}>
                 {isMobile && <NavigationBar style={[{ backgroundColor: colors.white }]} />}

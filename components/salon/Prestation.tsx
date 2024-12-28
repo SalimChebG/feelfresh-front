@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { menu } from "@/constants/SetPrestationsTest";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import {ThemedText} from "@/components/ThemedText"
+import { Link } from "expo-router";
 
 import {
   View,
@@ -92,9 +93,11 @@ export function Prestation() {
                                 <ThemedText variant='textstyle1' color='gray' style={styles.subTypeDescription}>{sub.description}</ThemedText>
                                 <View style={styles.priceRow}>
                                       <ThemedText variant='textstyle1' style={styles.subTypeDetails}>Price: {sub.price}</ThemedText>
-                                      <Pressable style={[styles.chooseButton,{backgroundColor: colors.blue}]}>
-                                            <ThemedText  variant='textstyle1'  color='white' style={styles.chooseButtonText}>Choose</ThemedText>
-                                      </Pressable>
+                                          <Link href={{ pathname: "/stylist/[id]" }} asChild >
+                                                <Pressable style={[styles.chooseButton,{backgroundColor: colors.blue}]}>
+                                                    <ThemedText  variant='textstyle1'  color='blue' style={styles.chooseButtonText}>Choose</ThemedText>
+                                                </Pressable>
+                                          </Link>
                                 </View>
                                 <ThemedText variant='textstyle1' style={styles.subTypeDetails}>Duration: {sub.duration}</ThemedText>
                           </View>
