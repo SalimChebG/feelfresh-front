@@ -11,10 +11,10 @@ type Props = {
 
 export function SearchBar({ value, onChange }: Props) {
   const colors = useThemeColors();
-  const { t , i18n} = useTranslation(); // Hook pour les traductions
+  const i18n = useTranslation(); // Hook pour les traductions
 
-  console.log("Current language:", i18n.language);
   console.log("Translations:", i18n.t('search_placeholder'));
+  const search_placeholder =i18n.t("search_placeholder");
 
   return (
     <Row gap={8} style={[styles.wrapper, { backgroundColor: colors.background.tertiary }]}>
@@ -26,7 +26,7 @@ export function SearchBar({ value, onChange }: Props) {
           style={styles.input}
           onChangeText={onChange}
           value={value}
-          placeholder = {t("search_placeholder")} // Utilisation de la traduction
+          placeholder = {search_placeholder} // Utilisation de la traduction
           placeholderTextColor={colors.textHolder} // Correctement placé
         />
     </Row>

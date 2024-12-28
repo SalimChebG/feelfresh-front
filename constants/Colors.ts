@@ -22,7 +22,7 @@ export const Colors = {
     blue: '#235AFF',
     white: '#FFFFFF',
     gray: '#787076',
-
+    grayDisabledButton: '#E5E5E5',
 
     tint: tintColorDark,
     icon: '#1BA1A6',

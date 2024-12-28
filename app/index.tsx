@@ -15,6 +15,7 @@ import {ServicesComponent} from "@/components/Services"
 import {useState} from 'react'
 import {NavigationBar} from "@/components/NavigationBar"
 import {filteredSalons} from "@/constants/SetTestSalons"
+import { useTranslation } from "react-i18next";
 import '../i18n';
 
 export default function Index() {
@@ -28,6 +29,10 @@ export default function Index() {
 
     const [search, setSearch] = useState('')
     //const filteredSalons = search ? salons.filter(p => p.name.includes(search.toLowerCase()) || getSalonId(p.url).toString() == search) : salons
+
+    const  i18n = useTranslation(); // Hook pour les traductions
+    const ServicesHomeLabel = i18n.t('ServicesHomeLAbel');
+    const NearbySalonHomeLabel = i18n.t('NearbySalonsHomeLabel');
 
 return (
   <SafeAreaView style={[styles.container, { backgroundColor: colors.background.primary }]}>
@@ -47,12 +52,12 @@ return (
                 <SearchBar value={search} onChange={setSearch}/>
             </View>
             <View style={[styles.frame, { marginTop: 24 }]}>
-                  <ThemedText variant="headline" color="text"> Services </ThemedText>
+                  <ThemedText variant="headline" color="text"> {ServicesHomeLabel} </ThemedText>
                   <ServicesComponent style={{ marginTop: 16 }}> </ServicesComponent>
             </View>
             {/* Petit sous-frame en bas */}
             <Row  style={[styles.smallTopFrame, { marginTop: 24 }]} >
-                <ThemedText variant="headline" color="gray"> Salons à proximité </ThemedText>
+                <ThemedText variant="headline" color="gray"> {NearbySalonHomeLabel} </ThemedText>
                 <Row style={{ flex: 0 }}>
                     <Image source={require("@/assets/images/homeScreen/map-pin.png")} style={{width: 16, height: 16 }} resizeMode="contain"/>
                     <ThemedText variant="subtitle1" color="blue"> Voir la carte</ThemedText>
