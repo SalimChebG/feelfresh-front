@@ -6,6 +6,8 @@ import ContinueButton from "@/components/buttons/ContinueButton";
 import BackButton from "@/components/buttons/BackButton";
 import { Link } from "expo-router";
 import { stylists } from "@/constants/SetTestStylist";
+import {RootView} from "@/components/RootView"
+
 
 
 export default function ChooseStylistScreen() {
@@ -17,9 +19,8 @@ export default function ChooseStylistScreen() {
   };
 
   return (
-    <View
+    <RootView
       style={[
-        styles.container,
         {
           backgroundColor: colors.background.primary,
           paddingTop: Platform.OS === "ios" ? StatusBar.currentHeight || 54 : 16,
@@ -52,16 +53,11 @@ export default function ChooseStylistScreen() {
             label="Select & continue"
           />
       </Link>
-    </View>
+    </RootView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 16,
-  },
-
   header: {
     flexDirection: "row",
     alignItems: "center",

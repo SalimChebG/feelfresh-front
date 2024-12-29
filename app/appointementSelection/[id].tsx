@@ -6,6 +6,8 @@ import TimeSlots from "@/components/Date/TimeSlots";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import BackButton from "@/components/buttons/BackButton";
 import { Row } from "@/components/Row";
+import {RootView} from "@/components/RootView"
+
 
 const today = new Date();
 
@@ -36,7 +38,7 @@ export default function ChooseAppointmentScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background.primary }]}>
+    <RootView style={ { backgroundColor: colors.background.primary }}>
       <View style={styles.header}>
         <BackButton />
         <Text style={[styles.title, { color: colors.text1 }]}>Choose Your Appointment</Text>
@@ -67,14 +69,11 @@ export default function ChooseAppointmentScreen() {
           <TimeSlots slots={timeSlots} selectedSlot={selectedSlot} onSelect={setSelectedSlot} />
         </>
       )}
-    </View>
+    </RootView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
   title: {
     fontSize: 16,
     fontWeight: "bold",
