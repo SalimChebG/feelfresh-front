@@ -41,7 +41,7 @@ export default ContinueButton;
 
 const styles = StyleSheet.create({
   button: {
-    width: 343,
+   width: '80%',
     height: 48,
     padding: 10,
     borderRadius: 10,

@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
   },
   slot: {
     padding: 12,
-    borderWidth: 2,
     borderRadius: 8,
-    margin: 4,
+    margin: 2,
     alignItems: "center",
     justifyContent: "center",
     minWidth: 80,
+    elevation:3,
   },
   text: {
     fontSize: 14,
