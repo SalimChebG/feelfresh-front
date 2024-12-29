@@ -16,6 +16,7 @@ import {useState} from 'react'
 import {NavigationBar} from "@/components/NavigationBar"
 import {filteredSalons} from "@/constants/SetTestSalons"
 import '../i18n';
+import {RootView} from "@/components/RootView"
 
 export default function Index() {
 
@@ -30,7 +31,7 @@ export default function Index() {
     //const filteredSalons = search ? salons.filter(p => p.name.includes(search.toLowerCase()) || getSalonId(p.url).toString() == search) : salons
 
 return (
-  <SafeAreaView style={[styles.container, { backgroundColor: colors.background.primary }]}>
+  <RootView style={[styles.container, { backgroundColor: colors.background.primary }]}>
   <StatusBar barStyle="dark-content" backgroundColor="white" />
     <Row style={styles.header} gap={120}>
       <ThemedText  variant="headline" color="text" >
@@ -45,7 +46,7 @@ return (
               ListHeaderComponent={
                   <>
                   {/* Frame supérieur */}
-                  <View style={[{ backgroundColor: colors.background.primary, paddingHorizontal: 20 },styles.topFrame]}>
+                  <View style={[{ backgroundColor: colors.background.primary, paddingHorizontal: 10 },styles.topFrame]}>
                     {/* Grand sous-frame en haut */}
                       <View style={[{ backgroundColor: colors.background.primary }]}>
                           <SearchBar value={search} onChange={setSearch}/>
@@ -57,7 +58,7 @@ return (
                       {/* Petit sous-frame en bas */}
                       <Row  style={[styles.smallTopFrame, { marginBottom: 0 }]} >
                           <ThemedText variant="headline" color="gray"> Salons à proximité </ThemedText>
-                          <Row style={{ flex: 0 }}>
+                          <Row >
                               <Image source={require("@/assets/images/homeScreen/map-pin.png")} style={{width: 16, height: 16 }} resizeMode="contain"/>
                               <ThemedText variant="subtitle1" color="blue"> Voir la carte</ThemedText>
                           </Row>
@@ -90,16 +91,12 @@ return (
           </View>
 
 
-  </SafeAreaView>
+  </RootView>
 );
 
 }
 
 const styles = StyleSheet.create({
-       container: {
-            flex: 1,
-            gap: 16,
-            },
         topFrame: {
           height: 220,
           justifyContent: "space-between",
@@ -108,21 +105,19 @@ const styles = StyleSheet.create({
         smallTopFrame: {
           width: "100%",
           height: 22,
-          flex: 0,
         },
 
         header: {
-            paddingHorizontal: 12,
+            paddingHorizontal: 30,
             paddingVertical: 8,
             flexDirection: 'row', // Par défaut sur mobile
             alignItems: 'center',
             },
 
     list: {
-        paddingHorizontal: 10,
+        paddingHorizontal: 6,
         justifyContent: "space-between",
-        gap :'40',
-
+        gap :'30',
     },
 
     mobileNavBarContainer: {
@@ -135,6 +130,6 @@ const styles = StyleSheet.create({
       navBar: {
         width: '100%', // Utilise toute la largeur du conteneur
         height: 58, // Fixe une hauteur spécifique pour l'image, tu peux ajuster cela en fonction du design
-        resizeMode: 'contain', // Assure que l'image conserve ses proportions sans déformation
+        //resizeMode: 'contain', // Assure que l'image conserve ses proportions sans déformation
       },
 })

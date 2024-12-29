@@ -1,27 +1,29 @@
-import React from "react";
-import { Pressable, Text, StyleSheet, Touchable, TouchableOpacity } from "react-native";
+import React, { forwardRef } from "react";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useThemeColors } from "@/hooks/useThemeColors";
 
 type ContinueButtonProps = {
   isEnabled: boolean;
   onPress: () => void;
-  label: string; // Propriété ajoutée pour personnaliser le texte
+  label: string;
 };
 
-export default function ContinueButton({ isEnabled, onPress, label }: ContinueButtonProps) {
+const ContinueButton = forwardRef(function ContinueButton(
+  { isEnabled, onPress, label }: ContinueButtonProps,
+  ref
+) {
   const colors = useThemeColors();
 
   return (
     <TouchableOpacity
+      ref={ref} // Forward the ref here
       style={[
         styles.button,
-        { backgroundColor: isEnabled ? colors.blue : colors.grayDisabledButton },
+        { backgroundColor: isEnabled ? colors.blue : colors.graythin },
       ]}
       disabled={!isEnabled}
       onPress={onPress}
-      // Ajout de l'effet d'opacité lors du clic
-      //android_ripple={{ color: colors.gray, borderless: true }} // effet de ripple sous Android
-      activeOpacity={0.6} // Réduction de l'opacité lors du clic
+      activeOpacity={0.6}
     >
       <Text
         style={[
@@ -29,11 +31,13 @@ export default function ContinueButton({ isEnabled, onPress, label }: ContinueBu
           { color: isEnabled ? colors.white : colors.gray },
         ]}
       >
-        {label} {/* Texte du bouton rendu dynamiquement */}
+        {label}
       </Text>
     </TouchableOpacity>
   );
-}
+});
+
+export default ContinueButton;
 
 const styles = StyleSheet.create({
   button: {
