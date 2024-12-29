@@ -16,6 +16,8 @@ import {
   LayoutAnimation,
   Platform,
   UIManager,
+  Image,
+  TouchableOpacity,
 } from "react-native";
 
 
@@ -46,7 +48,7 @@ export function Prestation() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background.primary }]}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <ScrollView>
         <View style={styles.tabsContainer}>
@@ -78,24 +80,35 @@ export function Prestation() {
                   ]}
                 >
                   <ThemedText variant='headline2' style={styles.dropdownTitle}>{service.type}</ThemedText>
-                  <ThemedText style={styles.dropdownIcon}>
-                    {expandedItems.includes(index) ? "▲" : "▼"}
-                  </ThemedText>
+                   <ThemedText style={styles.dropdownIcon}>
+                     {expandedItems.includes(index) ? (
+                       <Image
+                         source={require('@/assets/images/up-arrow.png')}
+                         style={styles.arrowIcon}
+                       />
+                     ) : (
+                       <Image
+                         source={require('@/assets/images/down-arrow.png')}
+                         style={styles.arrowIcon}
+                       />
+                     )}
+                   </ThemedText>
                 </Pressable>
                 {expandedItems.includes(index) && (
-                  <View style={[ styles.dropdownContent, { backgroundColor :colors.background.secondary}]}>
+                  <View style={[ styles.dropdownContent, { backgroundColor :colors.background.primary}]}>
                     <ThemedText variant='textstyle1' >{service.description}</ThemedText>
                     {service.listSousType ? (
                       <View>
                         {service.listSousType.map((sub, subIndex) => (
-                          <View key={subIndex} style={[styles.subTypeContainer, {backgroundColor: colors.background.secondary}]}>
+                          <View key={subIndex} style={[styles.subTypeContainer]}>
                                 <ThemedText variant='subtitle2' style={styles.subTypeTitle}>{sub.sousTypeName}</ThemedText>
                                 <ThemedText variant='textstyle1' color='gray' style={styles.subTypeDescription}>{sub.description}</ThemedText>
                                 <View style={styles.priceRow}>
                                       <ThemedText variant='textstyle1' style={styles.subTypeDetails}>Price: {sub.price}</ThemedText>
                                           <Link href={{ pathname: "/stylist/[id]" }} asChild >
-                                                <Pressable style={[styles.chooseButton,{backgroundColor: colors.blue}]}>
-                                                    <ThemedText  variant='textstyle1'  color='blue' style={styles.chooseButtonText}>Choose</ThemedText>
+                                                <Pressable
+                                                style={{backgroundColor: colors.blue, paddingVertical: 7, paddingHorizontal: 10, borderRadius: 9,}}>
+                                                    <ThemedText  variant='textstyle1'  color='white' style={styles.chooseButtonText}>Choose</ThemedText>
                                                 </Pressable>
                                           </Link>
                                 </View>
@@ -122,7 +135,7 @@ export function Prestation() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+
   },
   tabsContainer: {
     flexDirection: "row",
@@ -135,20 +148,24 @@ const styles = StyleSheet.create({
   },
   menuList: {
     padding: 16,
+    gap: 10,
   },
   dropdownHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 12,
-    paddingHorizontal: 16,
+    //paddingHorizontal: 16,
+    borderRadius:10,
   },
   dropdownTitle: {
     fontSize: 16,
     fontWeight: "600",
+    paddingHorizontal: 16,
   },
   dropdownIcon: {
     fontSize: 12,
+    paddingHorizontal: 16,
   },
   dropdownContent: {
     paddingHorizontal: 12,
@@ -160,7 +177,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   subTypeTitle: {
-
     marginBottom: 4,
   },
   subTypeDescription: {
@@ -179,5 +195,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 9,
   },
+    arrowIcon: {
+      width: 16, // Définir la largeur de l'icône
+      height: 16, // Définir la hauteur de l'icône
+      resizeMode: 'contain', // S'assurer que l'image garde ses proportions
+    },
 
 });

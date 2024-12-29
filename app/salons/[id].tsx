@@ -6,6 +6,8 @@ import { filteredSalons } from "@/constants/SetTestSalons";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { getSalonById } from "@/functions/salon";
 import { ThemedText } from "@/components/ThemedText"; // Importation de ThemedText
+import {RootView} from "@/components/RootView"
+
 
 import {
   View,
@@ -44,7 +46,7 @@ export default function SalonDetailsScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <RootView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       {/* App Bar */}
       <View style={styles.appBar}>
@@ -108,15 +110,11 @@ export default function SalonDetailsScreen() {
         </Prestation>
 
       </ScrollView>
-    </SafeAreaView>
+    </RootView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-  },
   // App Bar container
   appBar: {
     height: 44,
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
     top: 54,
     left: 16,
     right: 16,
-    zIndex: 10,
+    zIndex: 1,
     flexDirection: "row", // Disposition horizontale des icônes
     justifyContent: "space-between", // Espacement des éléments (icônes)
     alignItems: "center", // Centrer verticalement les icônes
