@@ -19,117 +19,86 @@ import '../i18n';
 import {RootView} from "@/components/RootView"
 
 export default function Index() {
-
     const { width } = Dimensions.get('window');
     const isMobile = Platform.OS !== 'web' && width <= 768; // On vérifie que ce n'est pas une plateforme "web" et que la largeur correspond à un écran mobile
-
     const colors = useThemeColors()
     const {data,  isFetching} = useFetchQuery('/coiffeurs')
     const salons = data ?? []
-
     const [search, setSearch] = useState('')
-    //const filteredSalons = search ? salons.filter(p => p.name.includes(search.toLowerCase()) || getSalonId(p.url).toString() == search) : salons
 
 return (
-  <RootView style={[styles.container, { backgroundColor: colors.background.primary }]}>
-  <StatusBar barStyle="dark-content" backgroundColor="white" />
-    <Row style={styles.header} gap={120}>
-      <ThemedText  variant="headline" color="text" >
-        feelFresh
-      </ThemedText>
-      <HomeHeader />
-    </Row>
-
-            <FlatList
-              data={filteredSalons} // Remplace avec ta liste de salons
-              numColumns={Platform.OS === 'web' ? 3 : 1} // Nombre de colonnes selon la plateforme
-              ListHeaderComponent={
-                  <>
-                  {/* Frame supérieur */}
-                  <View style={[{ backgroundColor: colors.background.primary, paddingHorizontal: 10 },styles.topFrame]}>
-                    {/* Grand sous-frame en haut */}
-                      <View style={[{ backgroundColor: colors.background.primary }]}>
-                          <SearchBar value={search} onChange={setSearch}/>
-                      </View>
-                      <View style={[styles.frame, { marginTop: 24 }]}>
+  <RootView>
+        <HomeHeader />
+        <FlatList
+          data={filteredSalons} // Remplace avec ta liste de salons
+          numColumns={Platform.OS === 'web' ? 3 : 1} // Nombre de colonnes selon la plateforme
+          ListHeaderComponent={
+              <>
+              <View style={[{ paddingHorizontal: 10 }, styles.topFrame]}>
+                     <SearchBar value={search} onChange={setSearch}/>
+                     <View style={[styles.frame, { marginTop: 12 }]}>
                             <ThemedText variant="headline" color="text"> Services </ThemedText>
-                            <ServicesComponent style={{ marginTop: 16 }}> </ServicesComponent>
+                            <ServicesComponent style={{ marginTop: 16 ,  marginBottom: 16 }}> </ServicesComponent>
+                    </View>
+                    <Row style={[{ marginBottom: 0, justifyContent: "space-between" }]}>
+                      <ThemedText variant="headline" color="gray">Salons à proximité</ThemedText>
+                      <View style={{ alignItems: "center", flexDirection: "row" }}>
+                        <Image
+                          source={require("@/assets/images/homeScreen/map-pin.png")}
+                          style={{ width: 16, height: 16 }}
+                          resizeMode="contain"
+                        />
+                        <ThemedText variant="subtitle1" color="blue" style={{ marginLeft: 5 }}>
+                          Voir la carte
+                        </ThemedText>
                       </View>
-                      {/* Petit sous-frame en bas */}
-                      <Row  style={[styles.smallTopFrame, { marginBottom: 0 }]} >
-                          <ThemedText variant="headline" color="gray"> Salons à proximité </ThemedText>
-                          <Row >
-                              <Image source={require("@/assets/images/homeScreen/map-pin.png")} style={{width: 16, height: 16 }} resizeMode="contain"/>
-                              <ThemedText variant="subtitle1" color="blue"> Voir la carte</ThemedText>
-                          </Row>
-                      </Row>
-                  </View>
-              </>
-              }
-              contentContainerStyle={[{ backgroundColor: colors.background.primary }, styles.list]} // Ajout des styles pour l'espacement
-              columnWrapperStyle={Platform.OS === 'web' ? styles.columnWrapper : null} // Style pour l'espacement des colonnes si sur web
-              ListFooterComponent={
-                isFetching ? <ActivityIndicator color={colors.secondaryBackground} /> : null
-              }
-              renderItem={({ item }) => (
-                <SalonPreviewCard
-                  id={item.id}
-                  name={item.name}
-                  address={item.address}
-                  reviewsNumber={item.reviewsNumber}
-                  rate={item.rate}
-                  openingHours={item.openingHours}
-                />
+                    </Row>
 
-              )}
-              keyExtractor={(item) => item.id.toString()} // Utilisation d'un identifiant unique pour chaque item
+              </View>
+          </>
+          }
+          contentContainerStyle={[styles.list]} // Ajout des styles pour l'espacement
+            columnWrapperStyle={
+              Platform.OS === 'web' ? { gap:40, marginLeft:50 , marginBottom: 40 } : null
+            }
+          ListFooterComponent={
+            isFetching ? <ActivityIndicator color={colors.secondaryBackground} /> : null
+          }
+          renderItem={({ item }) => (
+            <SalonPreviewCard
+              id={item.id}
+              name={item.name}
+              address={item.address}
+              reviewsNumber={item.reviewsNumber}
+              rate={item.rate}
+              openingHours={item.openingHours}
             />
 
-          <View style={isMobile ? styles.mobileNavBarContainer : {}}>
-                {isMobile && <NavigationBar style={[{ backgroundColor: colors.white }]} />}
+          )}
+          keyExtractor={(item) => item.id.toString()} // Utilisation d'un identifiant unique pour chaque item
+        />
 
-          </View>
-
-
+      <View style={isMobile ? styles.mobileNavBarContainer : {}}>
+            {isMobile && <NavigationBar style={[{ backgroundColor: colors.background.primary }]} />}
+      </View>
   </RootView>
 );
 
 }
 
 const styles = StyleSheet.create({
-        topFrame: {
-          height: 220,
-          justifyContent: "space-between",
-        },
-
-        smallTopFrame: {
-          width: "100%",
-          height: 22,
-        },
-
-        header: {
-            paddingHorizontal: 30,
-            paddingVertical: 8,
-            flexDirection: 'row', // Par défaut sur mobile
-            alignItems: 'center',
-            },
-
+    topFrame: {
+      justifyContent: "space-between",
+    },
     list: {
         paddingHorizontal: 6,
         justifyContent: "space-between",
         gap :'30',
     },
-
     mobileNavBarContainer: {
         position: 'absolute',
-        bottom:3,
+        bottom: Platform.OS === "ios" ? 10 : 0,
         left: 0,
         right: 0,
     },
-
-      navBar: {
-        width: '100%', // Utilise toute la largeur du conteneur
-        height: 58, // Fixe une hauteur spécifique pour l'image, tu peux ajuster cela en fonction du design
-        //resizeMode: 'contain', // Assure que l'image conserve ses proportions sans déformation
-      },
 })

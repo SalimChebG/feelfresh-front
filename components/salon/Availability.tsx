@@ -37,11 +37,11 @@ export function  Availability ({ availabilities })  {
   };
 
   return (
-    <Row style={styles.container}>
+    <Row style={[styles.container, {alignItems: 'center'}]}>
       {/* Section Matin */}
-      <Row style={[styles.row, {gap:10}]}>
-          <ThemedText variant='subtitle2' color='gray' >Matin</ThemedText>
-          <ThemedText variant='subtitle2' color='gray'>Après-midi</ThemedText>
+      <Row style={[styles.row, {gap:10,  alignItems: 'flex-start'}]}>
+          <ThemedText variant='textstyle2' color='gray' >Matin</ThemedText>
+          <ThemedText variant='textstyle2' color='gray'>Après-midi</ThemedText>
 
       </Row>
       {/* Section Après-Midi */}
@@ -54,10 +54,11 @@ export function  Availability ({ availabilities })  {
 };
 
 const styles = StyleSheet.create({
-container: {
-  paddingHorizontal: 20, // Correct pour le padding horizontal
-  width: '100%',
-},
+    container: {
+      paddingLeft: 10, // Correct pour le padding horizontal
+      paddingRight: 80,
+      width: '100%',
+    },
 
   row: {
     flexDirection: "column",
@@ -73,8 +74,8 @@ container: {
   },
 
   button: {
-    //padding: 7,
-    padding: Platform.OS === "ios" ? 7 : 3,
+    padding: 7,
+    //padding: Platform.OS === "ios" ? 7 : 3,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",

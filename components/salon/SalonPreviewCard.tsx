@@ -23,63 +23,61 @@ export function SalonPreviewCard({ style, id, name, address, reviewsNumber, rate
       asChild
     >
       <Pressable
-        android_ripple={{
-          color: colors.secondaryBackground,
-          foreground: true,
-        }}
         style={style}
       >
-        <View style={[styles.salon]}>
-          {/* Image Section */}
-          <Image
-            source={require("@/assets/images/8.png")}
-            style={styles.image}
-            resizeMode="cover"
-          />
-
-          {/* Information Section */}
-          <View style={styles.infoContainer}>
-            <ThemedText variant="subtitle2" color="text1" style={styles.name}>
-              {name}
-            </ThemedText>
-
-            {/* Address Row */}
-            <Row style={styles.ratingRow}>
+        <View style={[styles.shadowContainer, { backgroundColor: colors.background.primary }]}>
+            <View style={[styles.salon,{ backgroundColor: colors.background.primary}]}>
+              {/* Image Section */}
               <Image
-                source={require("@/assets/images/salon/map-pin-gray.png")}
-                style={{ width: 18, height: 18 }}
+                source={require("@/assets/images/8.png")}
+                style={styles.image}
+                resizeMode="cover"
               />
-              <ThemedText variant="textstyle2" color="text2" style={styles.text}>
-                {address}
-              </ThemedText>
-            </Row>
 
-            {/* Rating and Reviews Row */}
-            <Row style={styles.ratingRow}>
-              <Image
-                source={require("@/assets/images/salon/star.png")}
-                style={{ width: 18, height: 18 }}
+              {/* Information Section */}
+              <View style={styles.infoContainer}>
+                <ThemedText variant="subtitle2" color="text1" style={styles.name}>
+                  {name}
+                </ThemedText>
+
+                {/* Address Row */}
+                <Row style={styles.ratingRow}>
+                  <Image
+                    source={require("@/assets/images/salon/map-pin-gray.png")}
+                    style={{ width: 18, height: 18 }}
+                  />
+                  <ThemedText variant="textstyle1" color="text2" style={styles.text}>
+                    {address}
+                  </ThemedText>
+                </Row>
+
+                {/* Rating and Reviews Row */}
+                <Row style={styles.ratingRow}>
+                  <Image
+                    source={require("@/assets/images/salon/star.png")}
+                    style={{ width: 18, height: 18 }}
+                  />
+                  <ThemedText variant="textstyle1" color="text2" style={styles.text}>
+                    {rate}
+                  </ThemedText>
+                  <ThemedText variant="textstyle1" color="text2" style={styles.text}>
+                    ({reviewsNumber})
+                  </ThemedText>
+                </Row>
+              </View>
+
+              {/* Availability Section */}
+              <Availability
+                availabilities={[
+                  { date: "Ven.27", time: "matin", isAvailable: false },
+                  { date: "Sam.28", time: "matin", isAvailable: true },
+                  { date: "Dim.29", time: "matin", isAvailable: false },
+                  { date: "Ven.27", time: "après-midi", isAvailable: true },
+                  { date: "Sam.28", time: "après-midi", isAvailable: false },
+                  { date: "Dim.29", time: "après-midi", isAvailable: true },
+                ]}
               />
-              <ThemedText variant="textstyle1" color="text2" style={styles.text}>
-                {rate}
-              </ThemedText>
-              <ThemedText variant="textstyle1" color="text2" style={styles.text}>
-                ({reviewsNumber})
-              </ThemedText>
-            </Row>
-          </View>
-
-          {/* Availability Section */}
-          <Availability
-            availabilities={[
-              { date: "Ven.27", time: "matin", isAvailable: false },
-              { date: "Sam.28", time: "matin", isAvailable: true },
-              { date: "Dim.29", time: "matin", isAvailable: false },
-              { date: "Ven.27", time: "après-midi", isAvailable: true },
-              { date: "Sam.28", time: "après-midi", isAvailable: false },
-              { date: "Dim.29", time: "après-midi", isAvailable: true },
-            ]}
-          />
+            </View>
         </View>
       </Pressable>
     </Link>
@@ -87,20 +85,21 @@ export function SalonPreviewCard({ style, id, name, address, reviewsNumber, rate
 }
 
 const styles = StyleSheet.create({
-  salon: {
-    width: "100%",
-    borderRadius: 15,
-    backgroundColor: "white",
-    shadowColor: "#000",
-    shadowOffset: { width: 2, height: 2 },
+  shadowContainer: {
+    shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 3,
-    //overflow: "hidden", // Ensures the image doesn't overflow the card
+    borderRadius: 15, // Même rayon que la vue interne pour cohérence
+  },
+
+  salon: {
+    borderRadius: 15,
+    overflow: 'hidden'
   },
   image: {
     width: "100%",
-    height: 170, // Adjust height as needed
+    height: 250, // Adjust height as needed
   },
   infoContainer: {
     padding: 12,

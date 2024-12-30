@@ -44,32 +44,24 @@ export function ServicesComponent({ style }: { style?: any }) {
   );
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={[ style]}>
       <FlatList
         data={Services} // Données de la liste
         renderItem={renderItem} // Fonction de rendu pour chaque élément
         keyExtractor={(item) => item.name} // Clé unique pour chaque élément
         horizontal // Permet le défilement horizontal
         showsHorizontalScrollIndicator={false} // Cache la barre de défilement
-        contentContainerStyle={{
-          paddingLeft: 10, // Espace à gauche
-          paddingRight: 10, // Espace à droite
-        }}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-  },
   button: {
     alignItems: "center",
-    marginRight: 5, // Ajoute de l'espace entre les éléments (pas de marginLeft ici pour le premier)
+    marginRight: 10, // Ajoute de l'espace entre les éléments (pas de marginLeft ici pour le premier)
   },
   frame: {
-    width: 93,
     height: 40,
     borderRadius: 8,
     paddingHorizontal: 8,

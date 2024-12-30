@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     subtitle1:{fontSize:12, fontWeight:'medium',},
     subtitle2:{fontSize:16, fontWeight:'medium',},
     textstyle1:{fontSize:14, fontFamily: 'Inter', fontWeight:'regular',},
-    textstyle2:{fontSize:14, fontFamily: 'Inter', fontWeight:'medium',},
+    textstyle2:{fontSize:14, fontFamily: 'Inter', fontWeight:'500',},
 });
 
 type Props = TextProps & {

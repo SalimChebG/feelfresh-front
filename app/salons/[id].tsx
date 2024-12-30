@@ -7,7 +7,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { getSalonById } from "@/functions/salon";
 import { ThemedText } from "@/components/ThemedText"; // Importation de ThemedText
 import {RootView} from "@/components/RootView"
-
+import BackButton from "@/components/buttons/BackButton";
 
 import {
   View,
@@ -46,32 +46,24 @@ export default function SalonDetailsScreen() {
   };
 
   return (
-    <RootView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
-      {/* App Bar */}
-      <View style={styles.appBar}>
-        {/* Back Button */}
-        <TouchableOpacity onPress={handleBack} style={styles.iconContainer}>
-          <Image
-            source={require("@/assets/images/salon/arrow-left.png")}
-            style={[styles.icon, isClickedBack && { opacity: 0.5 }]} // Change l'opacité quand la flèche est cliquée
-          />
-        </TouchableOpacity>
-
-        {/* Favorite Button */}
-        <TouchableOpacity onPress={handleFavorite} style={styles.iconContainer}>
-          <Image
-            source={
-              isFavorite
-                ? require("@/assets/images/salon/favoris-icon-filled.png") // Cœur rempli
-                : require("@/assets/images/salon/favoris-icon.png") // Cœur vide
-            }
-            style={styles.icon}
-          />
-        </TouchableOpacity>
+    <RootView>
+      <View style={styles.header}>
+          <BackButton />
+          <ThemedText variant='headline' style={[styles.title, { color: colors.text1 }]}></ThemedText>
+          <TouchableOpacity onPress={handleFavorite} style={styles.iconContainer}>
+            <Image
+              source={
+                isFavorite
+                  ? require("@/assets/images/salon/favoris-icon-filled.png") // Cœur rempli
+                  : require("@/assets/images/salon/favoris-icon.png") // Cœur vide
+              }
+              style={styles.icon}
+            />
+          </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={{ paddingTop: 0 }}>
+
+      <ScrollView >
         {/* Header Image */}
         <Image
           source={require("@/assets/images/8.png")}
@@ -116,17 +108,14 @@ export default function SalonDetailsScreen() {
 
 const styles = StyleSheet.create({
   // App Bar container
-  appBar: {
-    height: 44,
-    position: "absolute", // Fixe l'AppBar en haut
-    top: 54,
-    left: 16,
-    right: 16,
-    zIndex: 1,
-    flexDirection: "row", // Disposition horizontale des icônes
-    justifyContent: "space-between", // Espacement des éléments (icônes)
-    alignItems: "center", // Centrer verticalement les icônes
-  },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 0,
+      justifyContent: "space-between", // Espacement des éléments (icônes)
+
+    },
+
   iconContainer: {
     width: 44,
     height: 44,
@@ -147,9 +136,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: width * 0.56,
     resizeMode: "cover",
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    marginTop: 40, // Ajoute un espacement entre l'AppBar et l'image
+    borderRadius:15,
   },
   infoSection: {
     padding: 16,
@@ -168,7 +155,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
     borderBottomWidth: 1,
   },
-
 
   menuList: {
     padding: 16,
@@ -197,4 +183,6 @@ const styles = StyleSheet.create({
       alignItems: "center",
       paddingVertical: 8,
     },
+
+
 });

@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router'; // Importer le hook useRouter
 import { useThemeColors } from "@/hooks/useThemeColors";
 
 const NAV_ITEMS = [
-  { name: 'Home', icon: require('@/assets/images/navBar/home.png') },
-  { name: 'Bookings', icon: require('@/assets/images/navBar/bookings.png') },
-  { name: 'Favorites', icon: require('@/assets/images/navBar/favorites.png') },
-  { name: 'Profile', icon: require('@/assets/images/navBar/profile.png') },
+  { name: 'Home', icon: require('@/assets/images/navBar/home.png'), path: '/app/index' },
+  { name: 'Bookings', icon: require('@/assets/images/navBar/bookings.png'), path: '/booking/[id]' },
+  { name: 'Favorites', icon: require('@/assets/images/navBar/favorites.png'), path: '/favorite/[id]' },
+  { name: 'Profile', icon: require('@/assets/images/navBar/profile.png'), path: '/profile/[id]' },
 ];
 
 export function NavigationBar({ style }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const colors = useThemeColors();
+  const router = useRouter(); // Initialiser le routeur
+
+  const handlePress = (item, index) => {
+    setActiveIndex(index); // Mettre à jour l'état actif
+
+    if (item.path) {
+      // Redirection via expo-router
+      //router.push(item.path.replace('[id]', '123')); // Remplacer [id] par un identifiant dynamique
+      router.push(item.path); // Remplacer [id] par un identifiant dynamique
+    }
+  };
 
   return (
     <View style={[styles.container, style]}>
@@ -19,17 +31,16 @@ export function NavigationBar({ style }) {
         <TouchableOpacity
           key={item.name}
           style={styles.button}
-          onPress={() => setActiveIndex(index)}
+          onPress={() => handlePress(item, index)}
           accessible={true}
           accessibilityLabel={`Navigate to ${item.name}`}
         >
-          {/* Vue englobant les éléments interactifs qui occupe tout l'espace */}
           <View style={styles.interactiveContainer}>
             <Image
               source={item.icon}
               style={[
                 styles.icon,
-                { tintColor: activeIndex === index ? colors.blue : colors.gray},
+                { tintColor: activeIndex === index ? colors.blue : colors.gray },
               ]}
             />
             <View
@@ -57,11 +68,11 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    flex: 1, // Ce qui permet à chaque bouton de prendre toute la largeur disponible
+    flex: 1,
   },
   interactiveContainer: {
-    alignItems: 'center', // Centrer verticalement les éléments (icône + indicateur)
-    flex: 1, // Occupation de tout l'espace disponible dans le parent
+    alignItems: 'center',
+    flex: 1,
     justifyContent: "center",
   },
   icon: {

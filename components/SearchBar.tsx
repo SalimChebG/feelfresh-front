@@ -17,19 +17,21 @@ export function SearchBar({ value, onChange }: Props) {
   const search_placeholder =i18n.t("search_placeholder");
 
   return (
-    <Row gap={8} style={[styles.wrapper, { backgroundColor: colors.background.tertiary }]}>
-          <Image
-            source={require("@/assets/images/homeScreen/search-loop.png")}
-            style={styles.icon}
-          />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChange}
-          value={value}
-          placeholder = {search_placeholder} // Utilisation de la traduction
-          placeholderTextColor={colors.textHolder} // Correctement placé
-        />
-    </Row>
+    <View>
+        <Row gap={8} style={[styles.wrapper, { backgroundColor: colors.background.tertiary }]}>
+              <Image
+                source={require("@/assets/images/homeScreen/search-loop.png")}
+                style={styles.icon}
+              />
+            <TextInput
+              style={styles.input}
+              onChangeText={onChange}
+              value={value}
+              placeholder = {search_placeholder} // Utilisation de la traduction
+              placeholderTextColor={colors.textHolder} // Correctement placé
+            />
+        </Row>
+    </View>
   );
 }
 
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
       width: '100%', // Largeur
       height: 48, // Hauteur
       borderRadius: 10, // Rayon des coins
-      position: 'absolute', // Position absolue
+      //position: Platform.OS === 'web' ? 'static' : 'absolute', //static en mobile absolute en web
   },
 
     input: {

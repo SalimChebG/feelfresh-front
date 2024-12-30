@@ -3,10 +3,11 @@ import { menu } from "@/constants/SetPrestationsTest";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import {ThemedText} from "@/components/ThemedText"
 import { Link } from "expo-router";
+import { Row } from "@/components/Row";
+import {RootView} from "@/components/RootView"
 
 import {
   View,
-  ScrollView,
   StyleSheet,
   Pressable,
   StatusBar,
@@ -48,9 +49,7 @@ export function Prestation() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background.primary }]}>
-      <StatusBar barStyle="dark-content" backgroundColor="white" />
-      <ScrollView>
+    <SafeAreaView style={styles.container}>
         <View style={styles.tabsContainer}>
           {Object.keys(menu).map((tab) => (
             <Pressable
@@ -103,16 +102,18 @@ export function Prestation() {
                           <View key={subIndex} style={[styles.subTypeContainer]}>
                                 <ThemedText variant='subtitle2' style={styles.subTypeTitle}>{sub.sousTypeName}</ThemedText>
                                 <ThemedText variant='textstyle1' color='gray' style={styles.subTypeDescription}>{sub.description}</ThemedText>
-                                <View style={styles.priceRow}>
-                                      <ThemedText variant='textstyle1' style={styles.subTypeDetails}>Price: {sub.price}</ThemedText>
-                                          <Link href={{ pathname: "/stylist/[id]" }} asChild >
-                                                <Pressable
+                                <Row style={styles.priceRow}>
+                                    <Row>
+                                        <ThemedText variant='textstyle2' >{sub.price}</ThemedText>
+                                        <ThemedText variant='textstyle1' >   •   {sub.duration}</ThemedText>
+                                    </Row>
+                                    <Link href={{ pathname: "/stylist/[id]" }} asChild >
+                                            <Pressable
                                                 style={{backgroundColor: colors.blue, paddingVertical: 7, paddingHorizontal: 10, borderRadius: 9,}}>
-                                                    <ThemedText  variant='textstyle1'  color='white' style={styles.chooseButtonText}>Choose</ThemedText>
-                                                </Pressable>
-                                          </Link>
-                                </View>
-                                <ThemedText variant='textstyle1' style={styles.subTypeDetails}>Duration: {sub.duration}</ThemedText>
+                                                <ThemedText  variant='textstyle1'  color='white' style={styles.chooseButtonText}>Choose</ThemedText>
+                                            </Pressable>
+                                    </Link>
+                                </Row>
                           </View>
                         ))}
                       </View>
@@ -127,7 +128,6 @@ export function Prestation() {
             ))}
           </View>
         )}
-      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   menuList: {
-    padding: 16,
+    padding: 6,
     gap: 10,
   },
   dropdownHeader: {
@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   priceRow: {
+    marginVertical: 8,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
