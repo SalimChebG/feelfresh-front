@@ -159,7 +159,7 @@ export default function ChooseAppointmentScreen() {
         <ContinueButton
           isEnabled={!!selectedSlot} // Active si un slot est sélectionné
           onPress={() => console.log("Button pressed")}
-          label="Continue"
+          label="Confirm & book"
         />
       </View>
     </RootView>
