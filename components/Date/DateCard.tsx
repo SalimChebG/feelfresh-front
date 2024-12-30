@@ -46,10 +46,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginHorizontal: 4,
     borderRadius: 12,
-    borderWidth: 2,
+    //borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
-    minWidth: 80,
+    //minWidth: 80,
     elevation: 3, // Android shadow
 
   },
