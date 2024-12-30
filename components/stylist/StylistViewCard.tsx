@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable, Image } from "react-native";
 import { useThemeColors } from "@/hooks/useThemeColors";
+import { ThemedText } from "@/components/ThemedText";
 
 type StylistCardProps = {
   stylist: {
@@ -35,14 +36,14 @@ export default function StylistViewCard({ stylist, isSelected, onSelect }: Styli
         <Image source={stylist.image} style={styles.image} />
       ) : (
         <View style={[styles.imagePlaceholder, { backgroundColor: colors.blue }]}>
-          <Text style={[styles.initial, { color: colors.white }]}>
+          <ThemedText variant="headline2" style={[ { color: colors.white }]}>
             {getInitial(stylist.name)}
-          </Text>
+          </ThemedText>
         </View>
       )}
       <View style={styles.infoContainer}>
-        <Text style={[styles.name, { color: colors.text1 }]}>{stylist.name}</Text>
-        <Text style={[styles.role, { color: colors.gray }]}>{stylist.role}</Text>
+        <ThemedText variant="headline4" style={[ { color: colors.text1 }]}>{stylist.name}</ThemedText>
+        <ThemedText variant="textstyle1" style={[ { color: colors.gray }]}>{stylist.role}</ThemedText>
       </View>
     </Pressable>
   );
@@ -81,11 +82,5 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 12,
   },
-  name: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  role: {
-    fontSize: 14,
-  },
+
 });

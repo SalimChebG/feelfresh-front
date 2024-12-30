@@ -6,7 +6,8 @@ import ContinueButton from "@/components/buttons/ContinueButton";
 import BackButton from "@/components/buttons/BackButton";
 import { Link } from "expo-router";
 import { stylists } from "@/constants/SetTestStylist";
-import {RootView} from "@/components/RootView"
+import {RootView} from "@/components/RootView";
+import { ThemedText } from "@/components/ThemedText";
 
 
 
@@ -29,7 +30,7 @@ export default function ChooseStylistScreen() {
     >
         <View style={styles.header}>
             <BackButton />
-            <Text style={[styles.title, { color: colors.text1 }]}>Choose your stylist</Text>
+            <ThemedText variant='headline3' style={[ { color: colors.text1 }]}>Choose your stylist</ThemedText>
         </View>
 
       <FlatList
@@ -64,10 +65,4 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginLeft: "8",
-    textAlignVertical: "center",
-  },
 });

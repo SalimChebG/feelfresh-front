@@ -5,6 +5,8 @@ import {useThemeColors} from "@/hooks/useThemeColors"
 const styles = StyleSheet.create({
     headline:{fontSize:18, fontFamily: 'Inter',fontWeight:'semi-bold',},
     headline2:{fontSize:22, fontFamily: 'Inter', fontWeight:'bold',},
+    headline3:{fontSize:18, fontFamily: 'Inter', fontWeight:'bold',},
+    headline4:{fontSize:16, fontFamily: 'Inter', fontWeight:'bold',},
     subtitle1:{fontSize:12, fontWeight:'medium',},
     subtitle2:{fontSize:16, fontWeight:'medium',},
     textstyle1:{fontSize:14, fontFamily: 'Inter', fontWeight:'regular',},
@@ -20,4 +22,3 @@ export function ThemedText({ variant, color, style, ...rest }: Props) {
     const colors = useThemeColors()
     return <Text style={[styles[variant ?? 'body3'], {color: colors[color ?? "text"]}, style]} {...rest}/>
 }
-

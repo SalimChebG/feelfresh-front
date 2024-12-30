@@ -4,10 +4,10 @@ import { useRouter } from 'expo-router'; // Importer le hook useRouter
 import { useThemeColors } from "@/hooks/useThemeColors";
 
 const NAV_ITEMS = [
-  { name: 'Home', icon: require('@/assets/images/navBar/home.png'), path: '/app/index' },
-  { name: 'Bookings', icon: require('@/assets/images/navBar/bookings.png'), path: '/booking/[id]' },
-  { name: 'Favorites', icon: require('@/assets/images/navBar/favorites.png'), path: '/favorite/[id]' },
-  { name: 'Profile', icon: require('@/assets/images/navBar/profile.png'), path: '/profile/[id]' },
+  { name: 'Home', icon: require('@/assets/images/navBar/home.png'), path: '/screens/home/home' },
+  { name: 'Bookings', icon: require('@/assets/images/navBar/bookings.png'), path: '/screens/booking/[id]' },
+  { name: 'Favorites', icon: require('@/assets/images/navBar/favorites.png'), path: '/screens/favorite/[id]' },
+  { name: 'Profile', icon: require('@/assets/images/navBar/profile.png'), path: '/screens/profile/[id]' },
 ];
 
 export function NavigationBar({ style }) {
