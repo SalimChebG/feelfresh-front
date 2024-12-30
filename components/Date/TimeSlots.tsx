@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useThemeColors } from "@/hooks/useThemeColors";
+import { ThemedText } from "@/components/ThemedText";
 
 type TimeSlotProps = {
   slots: string[]; // Exemple: ["10:00 AM", "11:30 AM"]
@@ -25,9 +26,9 @@ export default function TimeSlots({ slots, selectedSlot, onSelect }: TimeSlotPro
           ]}
           onPress={() => onSelect(slot)}
         >
-          <Text style={[styles.text, { color: selectedSlot === slot ? colors.white : colors.text1 }]}>
+          <ThemedText  color ={ selectedSlot === slot ? 'white' : 'text1' }>
             {slot}
-          </Text>
+          </ThemedText>
         </Pressable>
       ))}
     </View>

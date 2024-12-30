@@ -9,6 +9,7 @@ import { Row } from "@/components/Row";
 import { RootView } from "@/components/RootView";
 import { SalonPreviewCard } from "@/components/salon/SalonPreviewCard";
 import PrestationViewCard from "@/components/Date/PrestationViewCard";
+import { ThemedText } from "@/components/ThemedText";
 
 
 const handleDeletePrestation = () => {
@@ -69,11 +70,11 @@ export default function ChooseAppointmentScreen() {
     <RootView style={{ backgroundColor: colors.background.primary, flex: 1 }}>
       <View style={styles.header}>
         <BackButton />
-        <Text style={[styles.title, { color: colors.text1 }]}>Choose Your Appointment</Text>
+        <ThemedText variant="headline3" style={[ { color: colors.text1 }]}>Choose Your Appointment</ThemedText>
       </View>
 
       <View style={styles.PageTextView}>
-        <Text style={[styles.PageText, { color: colors.text1 }]}>Elite Salon</Text>
+        <ThemedText variant="headline3" style={[ { color: colors.text1 }]}>Elite Salon</ThemedText>
       </View>
 
       {/* Nom du salon et prestation sélectionnée */}
@@ -91,13 +92,13 @@ export default function ChooseAppointmentScreen() {
                 source={require("@/assets/images/add-icon.png" )}// Remplacez par le chemin de votre icône
                 style={{ width: 20, height: 20, marginRight: 8 }} // Ajustez les dimensions et l'espacement
               />
-              <Text style={[styles.addButtonText, { color: colors.blue }]}>Add Another Prestation</Text>
+              <ThemedText variant="headline4" color={'blue'}>Add Another Prestation</ThemedText>
             </View>
           </TouchableOpacity>
         </View>
       
       <View style={styles.PageTextView}>
-        <Text style={[styles.PageText, { color: colors.text1 }]}>Select Date and Time</Text>
+        <ThemedText variant="headline4" color={'blue'}>Add Another Prestation</ThemedText>
       </View>
 
       <Row >
@@ -135,7 +136,7 @@ export default function ChooseAppointmentScreen() {
           {selectedDate && (
             <>
             <View style={styles.PageTextView}>
-              <Text style={[styles.PageText, { color: colors.text1 }, {padding:10} ]}>Available Slots:</Text>
+            <ThemedText variant="headline3" color={'text1'} >Available Slots:</ThemedText>
               {timeSlotsByDay[selectedDate] && timeSlotsByDay[selectedDate].length > 0 ? (
                 
                 <TimeSlots
@@ -145,9 +146,9 @@ export default function ChooseAppointmentScreen() {
                 />
                 
               ) : (
-                <Text style={{ color: colors.text2, marginTop: 8 }}>
+                <ThemedText variant="subtitle2" color={'text2'} >
                   There is no slots for this date.
-                </Text>
+                </ThemedText>
               )}
               </View>
             </>
@@ -167,17 +168,7 @@ export default function ChooseAppointmentScreen() {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginLeft: 8,
-    textAlignVertical: "center",
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginVertical: 8,
-  },
+
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -210,24 +201,11 @@ const styles = StyleSheet.create({
     padding : 10,
   },
 
-
   PageTextView:{
     padding : 10,
     alignItems: "flex-start",
     paddingHorizontal: 16,
 
-  },
-
-  PageText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "left", // Texte aligné à gauche
-  },
-
-  prestationText: {
-    fontSize: 16,
-    marginVertical: 8,
-    textAlign: "left", // Texte aligné à gauche
   },
   addButtonView: {
     marginTop: 8,
@@ -235,11 +213,4 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     paddingHorizontal: 16,
   },
-  addButtonText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "left", // Texte aligné à gauche
-  },
-
-
 });

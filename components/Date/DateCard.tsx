@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useThemeColors } from "@/hooks/useThemeColors";
+import { ThemedText } from "@/components/ThemedText";
 
 type DateCardProps = {
   day: string; // Exemple: "TUE"
@@ -27,15 +28,15 @@ export default function DateCard({ day, date, isSelected, onSelect, time }: Date
       ]}
       onPress={onSelect}
     >
-      <Text style={[styles.day, { color: isSelected ? colors.white : colors.text2 }]}>
+      <ThemedText variant="textstyle2" color={ isSelected ? 'white' : 'text2' }>
         {day}
-      </Text>
-      <Text style={[styles.date, { color: isSelected ? colors.white : colors.text1 }]}>
+      </ThemedText>
+      <ThemedText variant="headline4" color={ isSelected ? 'white' : 'text1' }>
         {date}
-      </Text>
-      <Text style={[styles.time, { color: isSelected ? colors.white : colors.text3 }]}>
+      </ThemedText>
+      <ThemedText variant="subtitle1" color={ isSelected ? 'white' : 'text3' }>
         {time}
-      </Text>
+      </ThemedText>
     </Pressable>
   );
 }
@@ -53,17 +54,5 @@ const styles = StyleSheet.create({
     elevation: 3, // Android shadow
 
   },
-  day: {
-    fontSize: 12,
-    fontWeight: "600",
-    textTransform: "uppercase", // Pour correspondre à "TUE"
-  },
-  date: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  time: {
-    fontSize: 12,
-    marginTop: 4,
-  },
+
 });
