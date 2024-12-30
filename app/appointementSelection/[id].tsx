@@ -7,6 +7,13 @@ import { useThemeColors } from "@/hooks/useThemeColors";
 import BackButton from "@/components/buttons/BackButton";
 import { Row } from "@/components/Row";
 import { RootView } from "@/components/RootView";
+import { SalonPreviewCard } from "@/components/salon/SalonPreviewCard";
+import PrestationViewCard from "@/components/Date/PrestationViewCard";
+
+
+const handleDeletePrestation = () => {
+  console.log("Prestation deleted");
+};
 
 const today = new Date();
 
@@ -27,6 +34,13 @@ const timeSlotsByDay = {
   "Dec 29": ["9:00 AM", "10:30 AM", "2:00 PM", "4:00 PM"],
   "Dec 30": ["10:00 AM", "11:30 AM", "1:00 PM", "3:30 PM"],
   "Dec 31": ["9:30 AM", "11:00 AM", "1:30 PM", "4:00 PM"],
+  "Jan 1": ["11:00 AM", "1:00 PM", "3:00 PM", "5:00 PM"],
+  "Jan 2": ["9:00 AM", "10:30 AM", "12:00 PM", "2:00 PM"],
+  "Jan 3": ["8:30 AM", "10:00 AM", "11:30 AM", "2:00 PM", "4:00 PM"],
+  "Jan 4": ["9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM", "5:00 PM"],
+  "Jan 5": ["10:00 AM", "12:30 PM", "2:30 PM", "4:30 PM"],
+  "Jan 6": ["9:00 AM", "11:00 AM", "1:00 PM", "3:30 PM"],
+  "Jan 7": ["8:00 AM", "10:00 AM", "12:00 PM", "2:00 PM", "4:00 PM"],
 };
 
 export default function ChooseAppointmentScreen() {
@@ -58,26 +72,33 @@ export default function ChooseAppointmentScreen() {
         <Text style={[styles.title, { color: colors.text1 }]}>Choose Your Appointment</Text>
       </View>
 
-            {/* Nom du salon et prestation sélectionnée */}
-            <View style={[styles.salonInfo, { backgroundColor: colors.white }]}>
-  <Text style={[styles.salonText, { color: colors.text1 }]}>Elite Salon</Text>
-  <Text style={[styles.prestationText, { color: colors.text2 }]}>Simple Hair Cut</Text>
-
-  <View>
-    <TouchableOpacity style={styles.addButton} onPress={() => console.log("Add another prestation")}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-          source={require("@/assets/images/add-icon.png" )}// Remplacez par le chemin de votre icône
-          style={{ width: 20, height: 20, marginRight: 8 }} // Ajustez les dimensions et l'espacement
-        />
-        <Text style={[styles.addButtonText, { color: colors.blue }]}>Add Another Prestation</Text>
+      <View style={styles.PageTextView}>
+        <Text style={[styles.PageText, { color: colors.text1 }]}>Elite Salon</Text>
       </View>
-    </TouchableOpacity>
-  </View>
-</View>
 
+      {/* Nom du salon et prestation sélectionnée */}
+      <PrestationViewCard
+        prestationName="Simple Hair Cut"
+        stylistName="John wick"
+        duration="45 min"
+        onDelete={handleDeletePrestation}
+      />
 
-
+      <View style={styles.addButtonView}>
+          <TouchableOpacity  onPress={() => console.log("Add another prestation")} >
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require("@/assets/images/add-icon.png" )}// Remplacez par le chemin de votre icône
+                style={{ width: 20, height: 20, marginRight: 8 }} // Ajustez les dimensions et l'espacement
+              />
+              <Text style={[styles.addButtonText, { color: colors.blue }]}>Add Another Prestation</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      
+      <View style={styles.PageTextView}>
+        <Text style={[styles.PageText, { color: colors.text1 }]}>Select Date and Time</Text>
+      </View>
 
       <Row >
         <FlatList
@@ -113,18 +134,22 @@ export default function ChooseAppointmentScreen() {
       
           {selectedDate && (
             <>
-              <Text style={[styles.subtitle, { color: colors.text1 }]}>Available Slots:</Text>
+            <View style={styles.PageTextView}>
+              <Text style={[styles.PageText, { color: colors.text1 }, {padding:10} ]}>Available Slots:</Text>
               {timeSlotsByDay[selectedDate] && timeSlotsByDay[selectedDate].length > 0 ? (
+                
                 <TimeSlots
                   slots={timeSlotsByDay[selectedDate]}
                   selectedSlot={selectedSlot}
                   onSelect={setSelectedSlot}
                 />
+                
               ) : (
                 <Text style={{ color: colors.text2, marginTop: 8 }}>
                   There is no slots for this date.
                 </Text>
               )}
+              </View>
             </>
           )}
 
@@ -175,8 +200,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-
-  salonInfo: {
+  PrestationCardInfo: {
     marginVertical: 16,
     marginHorizontal: 8,
     alignItems: "flex-start", // Aligner les éléments à gauche
@@ -185,18 +209,31 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding : 10,
   },
-  salonText: {
+
+
+  PageTextView:{
+    padding : 10,
+    alignItems: "flex-start",
+    paddingHorizontal: 16,
+
+  },
+
+  PageText: {
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "left", // Texte aligné à gauche
   },
+
   prestationText: {
     fontSize: 16,
     marginVertical: 8,
     textAlign: "left", // Texte aligné à gauche
   },
-  addButton: {
+  addButtonView: {
     marginTop: 8,
+    padding : 10,
+    alignItems: "flex-start",
+    paddingHorizontal: 16,
   },
   addButtonText: {
     fontSize: 14,
