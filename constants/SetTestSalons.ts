@@ -2,7 +2,7 @@ export const filteredSalons = [
   {
     id: 1,
     name: 'TopG Wagon',
-    address: '123 Main St, Cityville',
+    address: '123 Main St Maison Alfor Neuilly la pelouse sur seine1 wash, Cityville',
     reviewsNumber: 120,
     rate: 4.5,
     openingHours: 'Mon-Sun: 9:00 AM - 8:00 PM',

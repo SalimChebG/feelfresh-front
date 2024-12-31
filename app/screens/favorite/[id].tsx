@@ -1,96 +1,132 @@
 import React, { useState } from 'react';
-import {useThemeColors} from "@/hooks/useThemeColors"
-import {RootView} from "@/components/RootView"
-import BackButton from "@/components/buttons/BackButton";
-import { useRouter, useSearchParams } from 'expo-router';
+import { useThemeColors } from "@/hooks/useThemeColors";
+import { RootView } from "@/components/RootView";
+import { Row } from "@/components/Row";
+import { ThemedText } from '@/components/ThemedText';
 
 import {
   View,
-  Text,
   StyleSheet,
-  TouchableOpacity,
   FlatList,
-  SafeAreaView,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; // Import des icônes
 
 const Favorite = () => {
-  //const { id } = useSearchParams(); // Récupérer l'ID depuis les paramètres de la route
-  const router = useRouter();
-  const [selectedTab, setSelectedTab] = useState('Upcoming');
   const colors = useThemeColors();
+  const [favorites, setFavorites] = useState([
+    {
+      id: '1',
+      name: 'Salon de Beauté Luxe',
+      address: '123 Rue de Paris, 75000 Paris',
+      image: require("@/assets/images/8.png"),
+    },
+    {
+      id: '2',
+      name: 'Relax & Style',
+      address: '456 Avenue de Lyon, 69000 Lyon',
+      image: require("@/assets/images/8.png"),
+    },
+    {
+      id: '3',
+      name: 'Chic & Charm',
+      address: '789 Boulevard Saint-Michel, 75005 Paris',
+      image: require("@/assets/images/8.png"),
+    },
+    {
+      id: '4',
+      name: 'Glamour Studio',
+      address: '321 Avenue des Champs-Élysées, 75008 Paris',
+      image: require("@/assets/images/8.png"),
+    },
+    {
+      id: '5',
+      name: 'Relaxation Spa',
+      address: '654 Rue de Lille, 59000 Lille',
+      image: require("@/assets/images/8.png"),
+    },
+    {
+      id: '6',
+      name: 'Beauty Secrets',
+      address: '987 Rue de la République, 69001 Lyon',
+      image: require("@/assets/images/8.png"),
+    },
+    {
+      id: '7',
+      name: 'Hair & Care',
+      address: '432 Rue de Strasbourg, 67000 Strasbourg',
+      image: require("@/assets/images/8.png"),
+    },
+    {
+      id: '8',
+      name: 'Oasis Beauté',
+      address: '123 Rue de Nantes, 44000 Nantes',
+      image: require("@/assets/images/8.png"),
+    },
+    {
+      id: '9',
+      name: 'Zenitude Spa',
+      address: '567 Boulevard Haussmann, 75009 Paris',
+      image: require("@/assets/images/8.png"),
+    },
+    {
+      id: '10',
+      name: 'Éclat Beauté',
+      address: '890 Avenue Jean Médecin, 06000 Nice',
+      image: require("@/assets/images/8.png"),
+    },
+  ]);
 
-  const bookings = {
-    Upcoming: [
-      {
-        id: '1',
-        date: 'Sep 10, 2024',
-        time: '9:30 AM',
-        salon: 'Hair Avenue',
-        address: 'Lakewood, California',
-        services: 'Hair Cut, Hair Wash',
-      },
-      {
-        id: '2',
-        date: 'Sep 28, 2024',
-        time: '9:30 AM',
-        salon: 'Hair Avenue',
-        address: 'Lakewood, California',
-        services: 'Hair Cut, Hair Wash',
-      },
-    ],
-    Completed: [],
-    Cancelled: [],
+  const toggleFavorite = (id) => {
+    setFavorites((prevFavorites) => prevFavorites.filter((salon) => salon.id !== id));
   };
 
-  const renderBookingItem = ({ item }) => (
-    <View style={styles.bookingCard}>
-      <View style={styles.bookingDetails}>
-        <Text style={styles.bookingDate}>{`${item.date} - ${item.time}`}</Text>
-        <Text style={styles.salonName}>{item.salon}</Text>
-        <Text style={styles.salonAddress}>{item.address}</Text>
-        <Text style={styles.bookingServices}>Services: {item.services}</Text>
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.cancelButton}>
-          <Text style={styles.buttonText}>Cancel Booking</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.receiptButton}>
-          <Text style={styles.buttonText}>View Receipt</Text>
-        </TouchableOpacity>
-      </View>
+  const renderFavoriteItem = ({ item }) => (
+    <View style={[styles.bookingCard, { backgroundColor: colors.background.card }]}>
+      <Row style={styles.mainRow}>
+        <Image
+          source={item.image}
+          style={styles.image}
+          resizeMode="cover"
+        />
+
+        {/* Information Section */}
+        <Row style={styles.infoContainer}>
+          <ThemedText variant="subtitle2" color="text1">
+            {item.name}
+          </ThemedText>
+
+          {/* Address Row */}
+          <Row style={styles.Row}>
+            <Image
+              source={require("@/assets/images/salon/map-pin-gray.png")}
+              style={{ width: 18, height: 18 }}
+            />
+            <ThemedText variant="textstyle1" color="text2">
+              {item.address}
+            </ThemedText>
+          </Row>
+        </Row>
+      </Row>
+
+      {/* Icône du cœur pour suppression */}
+      <TouchableOpacity onPress={() => toggleFavorite(item.id)}>
+        <Ionicons name="heart" size={28} color={colors.red} style={styles.heartIcon} />
+      </TouchableOpacity>
     </View>
   );
 
   return (
     <RootView style={styles.container}>
-      <View style={styles.tabContainer}>
-        {['Upcoming', 'Favorite', 'Cancelled'].map((tab) => (
-          <TouchableOpacity
-            key={tab}
-            style={[
-              styles.tab,
-              selectedTab === tab && styles.activeTab,
-            ]}
-            onPress={() => setSelectedTab(tab)}
-          >
-            <Text
-              style={
-                selectedTab === tab
-                  ? styles.activeTabText
-                  : styles.tabText
-              }
-            >
-              {tab}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
       <FlatList
-        data={bookings[selectedTab]}
+        data={favorites}
         keyExtractor={(item) => item.id}
-        renderItem={renderBookingItem}
+        renderItem={renderFavoriteItem}
         ListEmptyComponent={() => (
-          <Text style={styles.emptyMessage}>No bookings available</Text>
+          <ThemedText variant="textstyle1" color="text2" style={styles.emptyMessage}>
+            You have no favorite salons.
+          </ThemedText>
         )}
       />
     </RootView>
@@ -98,105 +134,51 @@ const Favorite = () => {
 };
 
 const styles = StyleSheet.create({
-      header: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginBottom: 16,
-      },
-
-      title: {
-        fontSize: 16,
-        fontWeight: "bold",
-        marginLeft: "8",
-        textAlignVertical: "center",
-      },
-
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingHorizontal: 16,
     paddingTop: 16,
   },
-  tabContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 16,
-  },
-  tab: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-  },
-  activeTab: {
-    backgroundColor: '#007BFF',
-  },
-  tabText: {
-    fontSize: 16,
-    color: '#000',
-  },
-  activeTabText: {
-    color: '#fff',
-  },
   bookingCard: {
-    backgroundColor: '#f9f9f9',
+    flexDirection: 'row',
     borderRadius: 8,
     padding: 16,
-    marginBottom: 16,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
   },
-  bookingDetails: {
-    marginBottom: 16,
+  heartIcon: {
+    marginRight: 16, // Espace entre l'icône et le contenu textuel
+    marginTop: 4, // Alignement vertical
   },
-  bookingDate: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 4,
+  infoContainer: {
+    flex: 1,
+    flexDirection: "column",
+    gap: 8,
+    alignItems: 'flex-start',
   },
-  salonName: {
-    fontSize: 16,
-    color: '#333',
-    marginBottom: 4,
+  mainRow: {
+    flex: 1,
+    flexDirection: "row",
+    gap: 8,
+    alignItems: 'flex-start',
   },
-  salonAddress: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 4,
-  },
-  bookingServices: {
-    fontSize: 14,
-    color: '#666',
-  },
-  buttonContainer: {
+  Row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  cancelButton: {
-    backgroundColor: '#FF3B30',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-  },
-  receiptButton: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    alignItems: 'center',
+    gap: 4,
   },
   emptyMessage: {
-    textAlign: 'center',
-    color: '#999',
     marginTop: 20,
+    textAlign: 'center',
     fontSize: 16,
+  },
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 5,
   },
 });
 

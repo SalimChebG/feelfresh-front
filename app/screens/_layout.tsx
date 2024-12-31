@@ -25,11 +25,12 @@ export default function RootLayout() {
           }}
         />
         {/* Barre de navigation affichée uniquement sur mobile */}
-        {isMobile && (
+
+        {/*{isMobile && (*/}
           <View style={[styles.mobileNavBarContainer, { backgroundColor: colors.background.primary }]}>
             <NavigationBar />
           </View>
-        )}
+        {/*)}*/}
       </View>
   );
 }

@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
       alignItems: "center",
       marginBottom: 0,
       justifyContent: "space-between", // Espacement des éléments (icônes)
-
     },
 
   iconContainer: {
