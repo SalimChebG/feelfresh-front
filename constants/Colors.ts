@@ -20,6 +20,7 @@ export const Colors = {
     white: '#FFFFFF',
     gray: '#787076',
     graythin: '#E5E5E5',
+    red: '#E63946',
 
 
     tint: tintColorDark,

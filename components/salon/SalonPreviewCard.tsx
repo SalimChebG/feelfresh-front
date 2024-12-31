@@ -19,7 +19,7 @@ export function SalonPreviewCard({ style, id, name, address, reviewsNumber, rate
   const colors = useThemeColors();
   return (
     <Link
-      href={{ pathname: "/salons/[id]",     params: { id: id,} }}
+      href={{ pathname: "/salons/[id]",  params: { id: id,} }}
       asChild
     >
       <Pressable
@@ -36,34 +36,34 @@ export function SalonPreviewCard({ style, id, name, address, reviewsNumber, rate
 
               {/* Information Section */}
               <View style={styles.infoContainer}>
-                <ThemedText variant="subtitle2" color="text1" style={styles.name}>
-                  {name}
-                </ThemedText>
+                    <ThemedText variant="subtitle2" color="text1">
+                      {name}
+                    </ThemedText>
 
-                {/* Address Row */}
-                <Row style={styles.ratingRow}>
-                  <Image
-                    source={require("@/assets/images/salon/map-pin-gray.png")}
-                    style={{ width: 18, height: 18 }}
-                  />
-                  <ThemedText variant="textstyle1" color="text2" style={styles.text}>
-                    {address}
-                  </ThemedText>
-                </Row>
+                    {/* Address Row */}
+                    <Row style={styles.ratingRow}>
+                          <Image
+                            source={require("@/assets/images/salon/map-pin-gray.png")}
+                            style={{ width: 18, height: 18 }}
+                          />
+                          <ThemedText variant="textstyle1" color="text2">
+                            {address}
+                          </ThemedText>
+                    </Row>
 
-                {/* Rating and Reviews Row */}
-                <Row style={styles.ratingRow}>
-                  <Image
-                    source={require("@/assets/images/salon/star.png")}
-                    style={{ width: 18, height: 18 }}
-                  />
-                  <ThemedText variant="textstyle1" color="text2" style={styles.text}>
-                    {rate}
-                  </ThemedText>
-                  <ThemedText variant="textstyle1" color="text2" style={styles.text}>
-                    ({reviewsNumber})
-                  </ThemedText>
-                </Row>
+                    {/* Rating and Reviews Row */}
+                    <Row style={styles.ratingRow}>
+                          <Image
+                            source={require("@/assets/images/salon/star.png")}
+                            style={{ width: 18, height: 18 }}
+                          />
+                          <ThemedText variant="textstyle1" color="text2" style={{marginTop: 2,}}>
+                            {rate}
+                          </ThemedText>
+                          <ThemedText variant="textstyle1" color="text2" style={{marginTop: 2,}}>
+                            ({reviewsNumber})
+                          </ThemedText>
+                    </Row>
               </View>
 
               {/* Availability Section */}
@@ -96,29 +96,25 @@ const styles = StyleSheet.create({
   salon: {
     borderRadius: 15,
     overflow: 'hidden'
+
   },
   image: {
     width: "100%",
     height: 250, // Adjust height as needed
   },
   infoContainer: {
-    padding: 12,
     flexDirection: "column",
     gap: 8,
+    //marginHorizontal: 8,
+    paddingHorizontal: 8,
   },
-  name: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 4,
-  },
+
   ratingRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
     justifyContent: "null",
     gap: 4,
+    //paddingHorizontal: 10,
   },
-  text: {
-    marginTop: 2,
-  },
+
 });
