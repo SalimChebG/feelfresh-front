@@ -67,14 +67,14 @@ export default function ChooseAppointmentScreen() {
   };
 
   return (
-    <RootView style={{ backgroundColor: colors.background.primary, flex: 1 }}>
+    <RootView >
       <View style={styles.header}>
         <BackButton />
-        <ThemedText variant="headline3" style={[ { color: colors.text1 }]}>Choose Your Appointment</ThemedText>
+        <ThemedText variant="headline3" color={'text1'}>Choose Your Appointment</ThemedText>
       </View>
 
       <View style={styles.PageTextView}>
-        <ThemedText variant="headline3" style={[ { color: colors.text1 }]}>Elite Salon</ThemedText>
+        <ThemedText variant="headline3" color={'text1'}>Elite Salon</ThemedText>
       </View>
 
       {/* Nom du salon et prestation sélectionnée */}
@@ -98,7 +98,7 @@ export default function ChooseAppointmentScreen() {
         </View>
       
       <View style={styles.PageTextView}>
-        <ThemedText variant="headline4" color={'blue'}>Add Another Prestation</ThemedText>
+        <ThemedText variant="headline3" color={'text1'}>Choose Date and time slot</ThemedText>
       </View>
 
       <Row >
