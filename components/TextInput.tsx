@@ -33,6 +33,7 @@ export default function TextInput({
         value={value}
         onChangeText={onChangeText}
         keyboardType={keyboardType} // Ajout de la gestion du keyboardType
+        //textContentType={isPassword ? "none" : "none"}
       />
       {isPassword && (
         <TouchableOpacity
@@ -67,5 +68,8 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     marginLeft: 8,
+    height: 50,
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
